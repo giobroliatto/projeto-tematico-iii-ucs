@@ -1,5 +1,6 @@
 import express from "express";
 import connectDatabase from "./config/db-connect.js";
+import routes from "./routes/index.js";
 
 const connection = await connectDatabase();
 
@@ -8,17 +9,10 @@ connection.on("error", (error) => {
 });
 
 connection.once("open", () => {
-    console.log("conectado ao banco com sucesso")
+    console.log("db connected")
 })
 
 const app = express();
-
-app.get("/", (req, res) => {
-    res.status(200).send("ECOCENTERRRR");
-});
-
-app.get("/ecopontos", (req, res) => {
-    res.status(200).send("")
-});
+routes(app);
 
 export default app;

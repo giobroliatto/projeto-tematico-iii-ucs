@@ -6,12 +6,12 @@ const EcopointList = () => {
     const [ecopoints, setEcopoints] = useState<any[]>([]); 
 
     useEffect(() => {
-        axios.get('http://localhost:3001/ecopoints') 
+        axios.get('http://localhost:3001/ecopoints')
             .then(response => {
                 setEcopoints(response.data);
             })
             .catch(error => {
-                console.error('Erro ao buscar dados:', error); 
+                console.error('Erro ao buscar dados:', error);
             });
     }, []);
 
@@ -26,6 +26,11 @@ const EcopointList = () => {
                         <p>Resíduo: {ecopoint.residue.name}</p>
                     </div>
                 ))}
+            </div>
+            <div className="button-container">
+                <button className="button" onClick={() => alert('link pra form cadastro')}>
+                    Seja um ecoponto cadastrado!
+                </button>
             </div>
         </div>
     );

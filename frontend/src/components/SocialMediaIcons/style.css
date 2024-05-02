@@ -1,16 +1,22 @@
+.socialMedias {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+    margin-top: 5px;
+}
+
 .socialMedia {
     padding: 6px;
-    font-size: 18px;
-    display: flex;
+    font-size: 24px;
     cursor: pointer;
     color: #68a83d;
     transition: color 0.5s;
-}
-  
-.socialMedias {
-    display: flex;
+    margin: 0 10px; 
 }
 
 .socialMedia:hover {
-    color: #3D88A8
+    color: #3D88A8; /* Mudança de cor ao passar o mouse */
 }

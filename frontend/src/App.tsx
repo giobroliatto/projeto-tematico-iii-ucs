@@ -1,11 +1,13 @@
 import EcopointList from './EcopointList';
 import './App.css';
+import Header from './components/Header';
 
 const App = () => {
     return (
         <div>
-            <h1>ECOCENTER</h1>
-            <EcopointList />
+            <Header />
+
+            <EcopointList /> 
         </div>
     );
 };

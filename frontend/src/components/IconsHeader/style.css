@@ -1,0 +1,16 @@
+.icon {
+    padding: 10px;
+    font-size: 24px;
+    display: flex;
+    cursor: pointer;
+    color: #3D88A8;
+    transition: color 0.5s;
+}
+
+.icons {
+    display: flex;
+}
+
+.icon:hover {
+    color: #a5b14a
+  }

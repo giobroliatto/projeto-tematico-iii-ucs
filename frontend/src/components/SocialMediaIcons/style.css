@@ -1,0 +1,16 @@
+.socialMedia {
+    padding: 6px;
+    font-size: 18px;
+    display: flex;
+    cursor: pointer;
+    color: #68a83d;
+    transition: color 0.5s;
+}
+  
+.socialMedias {
+    display: flex;
+}
+
+.socialMedia:hover {
+    color: #3D88A8
+}

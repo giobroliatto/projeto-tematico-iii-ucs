@@ -1,0 +1,21 @@
+.option {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    padding: 0 30px;
+    cursor: pointer;
+    color: #3D88A8;
+    transition: color 0.5s;
+    font-weight: bold;
+}
+
+.options {
+    display: flex;
+}
+
+.option:hover {
+    color: #a5b14a
+  }

@@ -5,18 +5,24 @@
     list-style: none; 
     padding: 0; 
     margin: 0; 
-    margin-top: 5px;
 }
 
 .socialMedia {
-    padding: 6px;
     font-size: 24px;
     cursor: pointer;
-    color: #68a83d;
-    transition: color 0.5s;
-    margin: 0 10px; 
+    color: #ffffff;
+    transition: color 0.3s;
+    margin: 0 8px; 
 }
 
-.socialMedia:hover {
-    color: #3D88A8; /* Mudança de cor ao passar o mouse */
+.youtube-class:hover {
+    color: rgba(255, 0, 0, 0.7);
+}
+
+.instagram-class:hover {
+    color: #ff3a7cc2;
+}
+
+.facebook-class:hover {
+    color: #47639ec4;
 }

@@ -1,8 +1,8 @@
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
-const icons = [faUser, faClipboard];
+const icons = [faFileCirclePlus, faUser];
 
 function IconsHeader() {
     return(

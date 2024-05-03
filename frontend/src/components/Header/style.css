@@ -1,7 +1,6 @@
 .App-header {
-    background-color: rgb(206, 228, 204);
+    background-color: rgb(249, 255, 248);
     height: 90px; 
-    box-shadow: 0px 5px 10px -4px rgba(0, 0, 0, 0.3); 
     display: flex;
     align-items: center;
     justify-content: center;

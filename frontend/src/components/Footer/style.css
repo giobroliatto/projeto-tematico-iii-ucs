@@ -1,21 +1,19 @@
 .App-footer {
-    background-color: rgb(206, 228, 204); 
+    background-color: transparent; 
     text-align: center;
     padding: 10px;
-    height: 70px; 
-    flex-shrink: 0; 
-    box-shadow: 0px -5px 10px -4px rgba(0, 0, 0, 0.3);
+    height: 50px; 
     display: flex;
-    flex-direction: column; 
-    align-items: center;
-    position: fixed;
-    left: 0;
+    align-items: center; 
+    justify-content: space-between;
+    position: fixed; 
+    left: 10%; 
     bottom: 0;
-    width: 100%;
+    width: 80%; 
+    border-top: 1px solid rgba(255, 255, 255, 0.60); 
 }
 
 .footer-description {
-    margin-top: 5px;
-    color: #68a83d;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 16px;
 }

@@ -35,7 +35,7 @@ const EcopointList = () => {
 
     return (
         <div>
-            <h1>ECOPONTOS</h1>
+            <h1>Ecopontos</h1>
 
             <section className="filter-section">
                 <input

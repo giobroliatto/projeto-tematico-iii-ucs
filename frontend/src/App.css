@@ -13,13 +13,40 @@ body {
 
 h1 {
   text-align: center;
-  color: rgb(4, 65, 29)
+  color: rgb(4, 65, 29);
+  font-weight: 700;
+  font-size: 40px;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; 
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 20px;
+}
+
+.filter-input {
+  background: transparent;
+  border: 1px solid #efffdf;
+  padding: 20px;
+  border-radius: 30px;
+  width: 250px;
+  height: 5px;
+  color: #ecfff1;
+  font-size: 16px;
+  margin-bottom: 10px;
+  
+  &::placeholder {
+    color: #add8b7;
+    font-size: 16px;
+  }
 }
 
 .card {
@@ -41,7 +68,7 @@ h1 {
 }
 
 .button {
-  background-color: #3D88A8;
+  background-color: #4f8ab8;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -50,6 +77,7 @@ h1 {
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 20px;
 }
 
 .button:hover {

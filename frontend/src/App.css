@@ -13,9 +13,10 @@ body {
 
 h1 {
   text-align: center;
-  color: rgb(4, 65, 29);
+  color: #1a932e;
   font-weight: 700;
   font-size: 40px;
+  text-shadow: 3px 3px 3px rgb(0, 100, 0);
 }
 
 .container {
@@ -34,7 +35,7 @@ h1 {
 
 .filter-input {
   background: transparent;
-  border: 1px solid #efffdf;
+  border: 1px solid #ffffff;
   padding: 20px;
   border-radius: 30px;
   width: 250px;
@@ -47,6 +48,21 @@ h1 {
     color: #add8b7;
     font-size: 16px;
   }
+}
+
+.clear-filters-button {
+  margin-top: -6px;
+  margin-left: -55px;
+  background: transparent; 
+  border: none; 
+  color: #e0f5dd; 
+  cursor: pointer; 
+  font-size: 20px; 
+  transition: color 0.3s; 
+}
+
+.clear-filters-button:hover {
+  color: #ff9090; 
 }
 
 .card {

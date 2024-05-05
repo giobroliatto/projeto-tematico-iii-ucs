@@ -5,13 +5,15 @@ import Footer from './components/Footer';
 
 const App = () => {
     return (
-        <div>
+        <div className="App-container">
             <Header />
-
-            <EcopointList /> 
-
+    
+            <main className="content">
+                <EcopointList />
+            </main>
+    
             <Footer />
-        </div>
+      </div>
     );
 };
 

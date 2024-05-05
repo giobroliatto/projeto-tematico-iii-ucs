@@ -1,17 +1,14 @@
 .App-footer {
-    background-color: transparent; 
-    text-align: center;
+    background-color: transparent;
     padding: 10px;
     height: 50px; 
     display: flex;
     align-items: center; 
     justify-content: space-between;
-    position: fixed; 
-    margin: 0 auto;
-    left: 9%;
-    bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.60);  
+
     width: 80%; 
-    border-top: 1px solid rgba(255, 255, 255, 0.60); 
+    margin-left: 9%;
 }
 
 .footer-description {

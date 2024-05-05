@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const EcopointList = () => {
     const [ecopoints, setEcopoints] = useState<any[]>([]);
@@ -65,6 +65,10 @@ const EcopointList = () => {
                             </option>
                         ))}
                     </select>
+
+                    <button className="select-residue-button">
+                        <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
                 </section>
 
                 <section className="ecopoints-section">

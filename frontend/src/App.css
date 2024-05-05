@@ -1,10 +1,24 @@
 html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background: linear-gradient(to bottom right, #1775ac, #85a329);
   color: white; 
+  background-attachment: fixed;
+}
+
+.App-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+  margin-bottom: 40px;
 }
 
 h1 {
@@ -18,9 +32,10 @@ h1 {
   background-color: rgba(255, 255, 255, 0.2);
   width: 80%;
   left: 9%;
-  position: fixed;
+  position: relative;
   border-radius: 30px;
   padding: 10px;
+  padding-bottom: 16px;
 }
 
 .filter-section {
@@ -53,12 +68,6 @@ h1 {
   padding: 20px;
 }
 
-.filter-select {
-  width: 40%;
-  height: 47px;
-  padding-left: 13px;
-}
-
 .clear-filters-button {
   margin-top: -12px;
   margin-left: -55px;
@@ -72,6 +81,24 @@ h1 {
 
 .clear-filters-button:hover {
   color: #ff9090; 
+}
+
+.filter-select {
+  width: 40%;
+  height: 47px;
+  padding-left: 13px;
+  appearance: none;
+  margin-right: 3px;
+}
+
+.select-residue-button {
+  margin-top: -12px;
+  margin-left: -53px;
+  background: transparent; 
+  border: none; 
+  color: #3D88A8; 
+  font-size: 18px; 
+  pointer-events: none;
 }
 
 .ecopoints-section {

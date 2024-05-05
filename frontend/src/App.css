@@ -1,9 +1,5 @@
 html, body {
   height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  box-sizing: border-box;
 }
 
 body {
@@ -18,43 +14,57 @@ h1 {
   font-size: 40px;
 }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; 
+.wrapper {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 80%;
+  left: 9%;
+  position: fixed;
+  border-radius: 30px;
+  padding: 10px;
 }
 
 .filter-section {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
   gap: 20px;
+  margin-top: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
+  width: 96%;
+  margin-left: 2%;
+  margin-bottom: 5px;
 }
 
-.filter-input {
-  background: transparent;
+.filter-input, .filter-select {
+  background: rgb(249, 255, 248);
   border: 1px solid #ffffff;
-  padding: 20px;
   border-radius: 30px;
-  width: 250px;
   height: 5px;
-  color: #ecfff1;
+  color: #000000;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   
   &::placeholder {
-    color: #add8b7;
+    color: #929793;
     font-size: 16px;
   }
 }
 
+.filter-input {
+  width: 60%;
+  padding: 20px;
+}
+
+.filter-select {
+  width: 40%;
+  height: 47px;
+  padding-left: 13px;
+}
+
 .clear-filters-button {
-  margin-top: -6px;
+  margin-top: -12px;
   margin-left: -55px;
   background: transparent; 
   border: none; 
-  color: #e0f5dd; 
+  color: #3D88A8; 
   cursor: pointer; 
   font-size: 20px; 
   transition: color 0.3s; 
@@ -62,6 +72,12 @@ h1 {
 
 .clear-filters-button:hover {
   color: #ff9090; 
+}
+
+.ecopoints-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
 }
 
 .card {
@@ -79,26 +95,4 @@ h1 {
 
 .card p {
   margin: 8px 0;
-}
-
-.button {
-  background-color: #4f8ab8;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 20px;
-}
-
-.button:hover {
-  background-color: #2d6780;
-}
-
-.button-container {
-  text-align: center;
-  padding: 20px;
 }

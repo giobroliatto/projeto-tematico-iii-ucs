@@ -8,11 +8,16 @@ const EcopointList = () => {
     const [ecopoints, setEcopoints] = useState<any[]>([]);
     const [nameFilter, setNameFilter] = useState('');
     const [residueFilter, setResidueFilter] = useState('');
+    const [residueTypes, setResidueTypes] = useState<string[]>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/ecopoints')
+        axios.get<Ecopoint[]>('http://localhost:3001/ecopoints')
             .then((response) => {
+                const ecopoints = response.data; 
                 setEcopoints(response.data);
+
+                const types = Array.from(new Set(ecopoints.map((e) => e.residue.name)));
+                setResidueTypes(types);
             })
             .catch((error) => {
                 console.error('Erro ao buscar dados:', error);
@@ -29,57 +34,62 @@ const EcopointList = () => {
         setNameFilter('');
     };
 
-    const clearResidueFilter = () => {
-        setResidueFilter('');
-    };
-
     return (
         <div>
             <h1>Ecopontos</h1>
 
-            <section className="filter-section">
-                <input
-                    type="text"
-                    value={residueFilter}
-                    onChange={(e) => setResidueFilter(e.target.value)}
-                    placeholder="Filtrar ecoponto por RESÍDUO..."
-                    className="filter-input"
-                />
+            <div className="wrapper">
 
-                <button className="clear-filters-button" onClick={clearResidueFilter}>
-                    <FontAwesomeIcon icon={faTimes} />
-                </button>
+                <section className="filter-section">
+                    <input
+                        type="text"
+                        value={nameFilter}
+                        onChange={(e) => setNameFilter(e.target.value)}
+                        placeholder="Digite o nome de um ecoponto..."
+                        className="filter-input"
+                    />
 
-                <input
-                    type="text"
-                    value={nameFilter}
-                    onChange={(e) => setNameFilter(e.target.value)}
-                    placeholder="Filtrar ecoponto por NOME..."
-                    className="filter-input"
-                />
+                    <button className="clear-filters-button" onClick={clearNameFilter}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </button>
 
-                <button className="clear-filters-button" onClick={clearNameFilter}>
-                    <FontAwesomeIcon icon={faTimes} />
-                </button>
-            </section>
+                    <select
+                        value={residueFilter}
+                        onChange={(e) => setResidueFilter(e.target.value)}
+                        className="filter-select"
+                    >
+                        <option value="">Todos os resíduos</option>
+                        {residueTypes.map((type) => (
+                            <option key={type} value={type.toLowerCase()}>
+                                {type}
+                            </option>
+                        ))}
+                    </select>
+                </section>
 
-            <div className="container">
-                {filteredEcopoints.map((ecopoint) => (
-                    <div className="card" key={ecopoint._id}>
-                        <h2>{ecopoint.name}</h2>
-                        <p>Resíduo: {ecopoint.residue.name}</p>
-                        <p>CEP: {ecopoint.cep}</p>
-                    </div>
-                ))}
+                <section className="ecopoints-section">
+                    {filteredEcopoints.map((ecopoint) => (
+                        <div className="card" key={ecopoint._id}>
+                            <h2>{ecopoint.name}</h2>
+                            <p>Resíduo: {ecopoint.residue.name}</p>
+                            <p>CEP: {ecopoint.cep}</p>
+                        </div>
+                    ))}
+                </section>
+
             </div>
 
-            <div className="button-container">
-                <button className="button" onClick={() => alert('link para cadastro')}>
-                    Seja um ecoponto cadastrado!
-                </button>
-            </div>
         </div>
     );
 };
+
+interface Ecopoint {
+    name: string;
+    residue: {
+      name: string;
+    };
+    cep: string;
+    _id: string;
+  }
 
 export default EcopointList;

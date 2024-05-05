@@ -5,9 +5,11 @@ const options = ['ECOPONTOS', 'RECICLOPÉDIA'];
 function OptionsHeader() {
     return(
         <ul className='options'>
-            { options.map(text => (
-                <li className='option'>{text}</li>
-            )) }
+            {options.map((text, index) => (
+                <li key={index} className='option'>
+                    {text}
+                </li>
+            ))}
         </ul>
     )
 }

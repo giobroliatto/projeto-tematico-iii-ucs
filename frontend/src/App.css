@@ -10,6 +10,14 @@ body {
   background-attachment: fixed;
 }
 
+input, select {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App-container {
   display: flex;
   flex-direction: column;
@@ -91,6 +99,15 @@ h1 {
   margin-right: 3px;
 }
 
+.filter-input:hover, .filter-select:hover {
+  border-color: #3D88A8; 
+}
+
+.filter-input:focus, .filter-select:focus {
+  outline: none; 
+  border-color: #043449; 
+}
+
 .select-residue-button {
   margin-top: -12px;
   margin-left: -53px;
@@ -122,4 +139,12 @@ h1 {
 
 .card p {
   margin: 8px 0;
+}
+
+.no-ecopoints {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  margin: 20px;
+  margin-bottom: 12px;
 }

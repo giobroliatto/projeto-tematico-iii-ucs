@@ -72,13 +72,19 @@ const EcopointList = () => {
                 </section>
 
                 <section className="ecopoints-section">
-                    {filteredEcopoints.map((ecopoint) => (
-                        <div className="card" key={ecopoint._id}>
-                            <h2>{ecopoint.name}</h2>
-                            <p>Resíduo: {ecopoint.residue.name}</p>
-                            <p>CEP: {ecopoint.cep}</p>
+                    {filteredEcopoints.length === 0 ? (
+                        <div className="no-ecopoints">
+                            Nenhum ecoponto encontrado
                         </div>
-                    ))}
+                    ) : (
+                        filteredEcopoints.map((ecopoint) => (
+                            <div className="card" key={ecopoint._id}>
+                                <h2>{ecopoint.name}</h2>
+                                <p>Resíduo: {ecopoint.residue.name}</p>
+                                <p>CEP: {ecopoint.cep}</p>
+                            </div>
+                        ))
+                    )}
                 </section>
 
             </div>
@@ -87,6 +93,8 @@ const EcopointList = () => {
     );
 };
 
+export default EcopointList;
+
 interface Ecopoint {
     name: string;
     residue: {
@@ -94,6 +102,4 @@ interface Ecopoint {
     };
     cep: string;
     _id: string;
-  }
-
-export default EcopointList;
+}

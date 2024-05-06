@@ -1,3 +1,7 @@
+.socialMedias a {
+    color: inherit;
+}
+
 .socialMedias {
     display: flex; 
     justify-content: center; 

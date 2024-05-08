@@ -24,17 +24,24 @@ class EcopointController {
 
     static async createEcopoint(req, res) {
         const newEcopoint = req.body;
-
+    
         try {
-            const filteredResidue = await residue.findById(newEcopoint.residue);
-            const completeEcopoint = { ...newEcopoint, residue: { ...filteredResidue._doc } }
+            const filteredResidues = await residue.find({ '_id': { $in: newEcopoint.residues } });
+            
+            if (filteredResidues.length !== newEcopoint.residues.length) {
+                return res.status(400).json({ message: "Um ou mais resíduos não foram encontrados" });
+            }
+    
+            const completeEcopoint = { ...newEcopoint, residues: filteredResidues };
+    
             const createdEcopoint = await ecopoint.create(completeEcopoint);
-
-            res.status(201).json({ message: `ecoponto ${newEcopoint.name} enviado para análise`, ecopoint: createdEcopoint })
+    
+            res.status(201).json({ message: `Ecoponto ${newEcopoint.companyName} enviado para análise`, ecopoint: createdEcopoint });
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao enviar formulário` })
+            res.status(500).json({ message: `${err.message} - falha ao enviar formulário` });
         }
     }
+    
 
     static async updateEcopoint(req, res) {
         try {

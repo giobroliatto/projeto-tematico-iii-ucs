@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import './App.css';
+import './EcopointList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -35,24 +35,12 @@ const EcopointList = () => {
     };
 
     return (
-        <div>
+        <div className="content">
             <h1>Ecopontos</h1>
 
             <div className="wrapper">
 
                 <section className="filter-section">
-                    <input
-                        type="text"
-                        value={nameFilter}
-                        onChange={(e) => setNameFilter(e.target.value)}
-                        placeholder="Digite o nome de um ecoponto..."
-                        className="filter-input"
-                    />
-
-                    <button className="clear-filters-button" onClick={clearNameFilter}>
-                        <FontAwesomeIcon icon={faTimes} />
-                    </button>
-
                     <select
                         value={residueFilter}
                         onChange={(e) => setResidueFilter(e.target.value)}
@@ -68,6 +56,18 @@ const EcopointList = () => {
 
                     <button className="select-residue-button">
                         <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
+
+                    <input
+                        type="text"
+                        value={nameFilter}
+                        onChange={(e) => setNameFilter(e.target.value)}
+                        placeholder="Digite o nome de um ecoponto..."
+                        className="filter-input"
+                    />
+
+                    <button className="clear-filters-button" onClick={clearNameFilter}>
+                        <FontAwesomeIcon icon={faTimes} />
                     </button>
                 </section>
 

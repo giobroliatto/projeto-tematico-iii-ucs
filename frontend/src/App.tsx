@@ -1,7 +1,9 @@
-import EcopointList from './EcopointList';
 import './App.css';
+import EcopointList from './EcopointList';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import EcopointRegistrationForm from './EcopointRegistrationForm';
+import Map from './components/Map/Map';
 
 const App = () => {
     return (
@@ -9,7 +11,9 @@ const App = () => {
             <Header />
     
             <main className="content">
-                <EcopointList />
+                {/* <EcopointList /> */}
+                <EcopointRegistrationForm />
+                {/* <Map /> */}
             </main>
     
             <Footer />

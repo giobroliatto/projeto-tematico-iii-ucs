@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import InputMask from 'react-input-mask';
 import './EcopointRegistrationForm.css';
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 const EcopointRegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -38,12 +40,38 @@ const EcopointRegistrationForm = () => {
         fetchResidues();
     }, []);
 
+    const fetchAddressByCep = async (cep) => {
+        try {
+            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            if (response.ok) {
+                const addressData = await response.json();
+
+                if (!addressData.erro) {
+                    console.log(formData)
+                    setFormData({
+                        ...formData,
+                        companyCep: addressData.cep || '',
+                        companyStreet: addressData.logradouro || '',
+                        companyDistrict: addressData.bairro || '',
+                    });
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao buscar informações pelo CEP:", error);
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
+
         setFormData({
             ...formData,
             [name]: value,
         });
+        
+        if (name === 'companyCep' && value.replace(/[_-]/g, '').length === 8) {
+            fetchAddressByCep(value.replace(/[_-]/g, ''));
+        }
     };
 
     const handleCheckboxChange = (e) => {
@@ -98,115 +126,145 @@ const EcopointRegistrationForm = () => {
 
                 <div className="card">
                     <h2>Antes de se cadastrar, leia com atenção os TERMOS:</h2>
-                    <p>- O Ecoponto é responsável pela organização da coleta...</p>
-                    <p>- A cada 2 meses, os resíduos devem ser entregues para o Coletivo...</p>
-                    <p>- Após o recebimento, o Coletivo Lixo Zero Caxias do Sul é responsável...</p>
+                    <p>- O Ecoponto é responsável pela organização da coleta, ou seja, é o parceiro que deverá disponibilizar uma ou mais caixas para que as pessoas possam depositar os resíduos, e também é responsável pela verificação dos materiais descartados (se estão de acordo com a proposta); </p>
+                    <p>- A cada 2 meses, os resíduos devem ser entregues para o Coletivo Lixo Zero Caxias do Sul no nosso Drive Thru. Sempre será avisado com antecedência quando o Drive Thru irá ocorrer, assim como o horário e local; </p>
+                    <p>- Após o recebimento, o Coletivo Lixo Zero Caxias do Sul é o responsável por destinar corretamente os resíduos coletados pelo(s) parceiro(s). </p>
                     <p>Desde já, nosso muito obrigado pelo seu interesse e consciência ambiental e coletiva!</p>
                 </div>
 
                 <div className="card">
                     <h3>Formulário de Cadastro</h3>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>E-mail <span className="required">*</span></label>
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Digite seu e-mail"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
+
+                        <div className="row"> 
+                            <div className="col-md-12 form-group">
+                                <label>Responsável pelo cadastro <span className="required">*</span></label>
+                                <input
+                                    type="text"
+                                    name="responsibleName"
+                                    placeholder="Digite o nome do responsável..."
+                                    value={formData.responsibleName}
+                                    onChange={handleChange}
+                                />
+                            </div>
                         </div>
                         
-                        <div className="form-group">
-                            <label>Nome da Empresa / Instituição / Estabelecimento <span className="required">*</span></label>
-                            <input
-                                type="text"
-                                name="companyName"
-                                placeholder="Nome da Empresa"
-                                value={formData.companyName}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        
-                        <div className="form-group">
-                            <label>Responsável pelo cadastro (nome) <span className="required">*</span></label>
-                            <input
-                                type="text"
-                                name="responsibleName"
-                                placeholder="Nome do Responsável"
-                                value={formData.responsibleName}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        
-                        <div className="form-group">
-                            <label>Contato do responsável pelo cadastro (e-mail ou WhatsApp) <span className="required">*</span></label>
-                            <input
-                                type="text"
-                                name="responsibleNumber"
-                                placeholder="E-mail ou WhatsApp"
+                        <div className="row"> 
+                            <div className="col-md-8 form-group">
+                                <label>E-mail <span className="required">*</span></label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Digite seu e-mail..."
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        <div className="col-md-4 form-group">
+                            <label>Telefone para contato (WhatsApp) <span className="required">*</span></label>
+                            <InputMask
+                                mask="(99) 99999-9999"
                                 value={formData.responsibleNumber}
-                                onChange={handleChange}
-                            />
+                                onChange={(e) => {
+                                const { name, value } = e.target;
+                                setFormData({
+                                    ...formData,
+                                    [name]: value,
+                                });
+                                }}
+                            >
+                                {(inputProps) => (
+                                <input
+                                    {...inputProps}
+                                    type="text"
+                                    name="responsibleNumber"
+                                    placeholder="Número (com DDD)"
+                                />
+                                )}
+                            </InputMask>
+                            </div>
+                        </div>
+                            
+                        <div className="row"> 
+                            <div className="col-md-12 form-group">
+                                <label>Nome da empresa/Instituição/Estabelecimento <span className="required">*</span></label>
+                                <input
+                                    type="text"
+                                    name="companyName"
+                                    placeholder="Digite o nome da empresa..."
+                                    value={formData.companyName}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className='row'>
+                            <div className="col-md-3 form-group">
+                                <label>CEP <span className="required">*</span></label>
+                                <InputMask
+                                    mask="99999-999"
+                                    value={formData.companyCep}
+                                    onChange={handleChange}
+                                >
+                                    {(inputProps) => (
+                                        <input
+                                            {...inputProps}
+                                            type="text"
+                                            name="companyCep"
+                                            placeholder="CEP do local"
+                                        />
+                                    )}
+                                </InputMask>
+                            </div>
+                            <div className="col-md-9 form-group">
+                                <label>Rua <span className="required">*</span></label>
+                                <input
+                                    className='disabled'
+                                    type="text"
+                                    name="companyStreet"
+                                    disabled={true}
+                                    value={formData.companyStreet}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+
+                        <div className='row'>
+                            <div className="col-md-6 form-group">
+                                <label>Bairro <span className="required">*</span></label>
+                                <input
+                                    className='disabled'
+                                    type="text"
+                                    name="companyDistrict"
+                                    disabled={true}
+                                    value={formData.companyDistrict}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="col-md-4 form-group">
+                                <label>Número <span className="required">*</span></label>
+                                <input
+                                    type="number"
+                                    name="companyNumber"
+                                    placeholder="0000"
+                                    value={formData.companyNumber}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="col-md-2 form-group">
+                                <label>Complemento</label>
+                                <input
+                                    type="number"
+                                    name="companyComplement"
+                                    value={formData.companyComplement}
+                                    onChange={handleChange}
+                                />
+                            </div>
                         </div>
                         
                         <div className="form-group">
-                            <label>CEP do Local <span className="required">*</span></label>
-                            <input
-                                type="number"
-                                name="companyCep"
-                                placeholder="CEP do local"
-                                value={formData.companyCep}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        
-                        <div className="form-group">
-                            <label>Rua do Local <span className="required">*</span></label>
-                            <input
-                                type="text"
-                                name="companyStreet"
-                                placeholder="Rua"
-                                value={formData.companyStreet}
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Bairro <span className="required">*</span></label>
-                            <input
-                                type="text"
-                                name="companyDistrict"
-                                placeholder="Bairro"
-                                value={formData.companyDistrict}
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Número do Local <span className="required">*</span></label>
-                            <input
-                                type="number"
-                                name="companyNumber"
-                                placeholder="Número do local"
-                                value={formData.companyNumber}
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Complemento (se houver)</label>
-                            <input
-                                type="number"
-                                name="companyComplement"
-                                placeholder="Complemento"
-                                value={formData.companyComplement}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        
-                        <div class="form-group">
                             <label>Tipo de resíduo que o Ecoponto vai receber (selecionar um ou mais!) <span className="required">*</span></label>
                             <select 
                                 multiple 
@@ -242,10 +300,10 @@ const EcopointRegistrationForm = () => {
                             </label>
                         </div>
                         
-                        <div className="button-wrapper">
-                            <button className="button" type="submit">Enviar</button>
-                        </div>
                     </form>
+                </div>
+                <div className="button-wrapper">
+                    <button className="button" type="submit">Enviar</button>
                 </div>
             </div>
         </div>

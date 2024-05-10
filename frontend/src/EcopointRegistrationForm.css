@@ -8,26 +8,34 @@ h1 {
 }
 
 h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
     font-size: 24px;
 }
 
 h3 {
+    margin-top: 0px;
+    margin-bottom: 30px;
     font-size: 28px;
+}
+
+p {
+    text-align: justify;
 }
 
 .wrapper {
     background-color: rgba(0, 0, 0, 0.2);
-    width: 80%;
-    left: 9%;
+    width: 50%;
+    left: 23%;
     position: relative;
     border-radius: 30px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .card {
     background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 30px;
-    padding: 15px;
+    border-radius: 20px;
+    padding: 30px;
     margin-bottom: 20px; 
 }
 
@@ -64,13 +72,15 @@ input:focus, select:focus {
 .button-wrapper {
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .button {
-    background-color: #3282b8;
-    color: #f7fff8;
+    background-color: rgb(249, 255, 248);
+    color: #000000;
     font-weight: 700;
     font-size: 16px;
+    width: 30%;
     padding: 12px 24px; 
     border: none;
     border-radius: 12px;
@@ -80,4 +90,15 @@ input:focus, select:focus {
 
 .button:hover {
     background-color: #286089; 
+}
+
+.required {
+    color: rgb(255, 0, 0);
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.disabled {
+    background-color: rgb(189, 189, 189);
+    border-color: #858585;
 }

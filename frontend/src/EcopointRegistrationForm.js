@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import InputMask from 'react-input-mask';
 import './EcopointRegistrationForm.css';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
@@ -54,6 +56,21 @@ const EcopointRegistrationForm = () => {
                         companyStreet: addressData.logradouro || '',
                         companyDistrict: addressData.bairro || '',
                     });
+                } else {
+                    setFormData({
+                        ...formData,
+                        companyCep: '',
+                        companyStreet: '',
+                        companyDistrict: '',
+                    });
+                    toast.error('CEP inválido', {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        theme: "colored",
+                    });                    
                 }
             }
         } catch (error) {
@@ -117,6 +134,8 @@ const EcopointRegistrationForm = () => {
 
     return (
         <div className="content">
+            <ToastContainer />
+
             <h1>Cadastro de Ecoponto Fixo</h1>
             
             <div className="wrapper">

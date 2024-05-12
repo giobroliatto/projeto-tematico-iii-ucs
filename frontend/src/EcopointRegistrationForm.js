@@ -5,6 +5,7 @@ import InputMask from 'react-input-mask';
 import Select from 'react-select';
 import './EcopointRegistrationForm.css';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
+import SchedulePicker from './components/SchedulePicker';
 
 const EcopointRegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -35,6 +36,10 @@ const EcopointRegistrationForm = () => {
         multiValue: (provided, state) => ({
             ...provided,
             backgroundColor: '#bcdbb1',
+        }),
+        control: (provided, state) => ({
+            ...provided,
+            borderRadius: '10px',
         }),
     };
 
@@ -70,7 +75,6 @@ const EcopointRegistrationForm = () => {
                 const addressData = await response.json();
 
                 if (!addressData.erro) {
-                    console.log(formData)
                     setFormData({
                         ...formData,
                         companyCep: addressData.cep || '',
@@ -107,8 +111,8 @@ const EcopointRegistrationForm = () => {
             [name]: value,
         });
         
-        if (name === 'companyCep' && value.replace(/[_-]/g, '').length === 8) {
-            fetchAddressByCep(value.replace(/[_-]/g, ''));
+        if (name === 'companyCep' && value.replace(/\D/g, '').length === 8) {
+            fetchAddressByCep(value.replace(/\D/g, ''));
         }
     };
 
@@ -130,16 +134,29 @@ const EcopointRegistrationForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const formattedData = {
+            ...formData,
+            companyCep: formData.companyCep.replace(/\D/g, ''), 
+            responsibleNumber: formData.responsibleNumber.replace(/\D/g, ''),
+        };
+
         const response = await fetch('http://localhost:3001/ecopoints/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formattedData),
         });
 
         if (response.ok) {
-            console.log("Ecopoint cadastrado com sucesso!");
+            toast.success('Informações enviadas para análise', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                theme: "colored",
+            });  
         } else {
             console.error("Erro ao cadastrar o Ecopoint.");
         }
@@ -297,12 +314,13 @@ const EcopointRegistrationForm = () => {
                         </div>
                         
                         <div className="form-group">
-                            <label>Tipo de resíduo que o Ecoponto vai receber (selecionar um ou mais!) <span className="required">*</span></label>
+                            <label>Tipo de resíduo que o Ecoponto vai receber <span className="required">*</span></label>
                             <Select
                                 options={residuesOptions}
                                 isMulti
                                 onChange={handleResiduesChange}
                                 styles={customStyles}
+                                placeholder='Selecione um ou mais resíduos...'
                             />
                         </div>
                         
@@ -326,6 +344,11 @@ const EcopointRegistrationForm = () => {
                                 /> Não
                             </label>
                         </div>
+
+                        <SchedulePicker
+                            schedules={formData.schedules}
+                            setSchedules={newSchedules => setFormData({ ...formData, schedules: newSchedules })}
+                        />
                     </div>
                     <div className="button-wrapper">
                         <button className="button" type="submit">Enviar</button>

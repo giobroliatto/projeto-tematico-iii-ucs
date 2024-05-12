@@ -30,11 +30,11 @@ const EcopointRegistrationForm = () => {
         }),
         multiValueRemove: (provided, state) => ({
             ...provided,
-            color: '#cc5f5f', // Cor do "X" de excluir a tag
+            color: '#cc5f5f',
         }),
         multiValue: (provided, state) => ({
             ...provided,
-            backgroundColor: '#bcdbb1', // Cor de fundo das tags
+            backgroundColor: '#bcdbb1',
         }),
     };
 
@@ -112,11 +112,11 @@ const EcopointRegistrationForm = () => {
         }
     };
 
-    const handleResiduesChange = (e) => {
-        const options = Array.from(e.target.selectedOptions, option => option.value);
+    const handleResiduesChange = (selectedOptions) => {
+        const selectedResidues = selectedOptions ? selectedOptions.map(option => option.value) : [];
         setFormData({
             ...formData,
-            residues: options,
+            residues: selectedResidues
         });
     };
 
@@ -301,14 +301,8 @@ const EcopointRegistrationForm = () => {
                             <Select
                                 options={residuesOptions}
                                 isMulti
-                                onChange={selectedOptions => {
-                                    const selectedResidues = selectedOptions ? selectedOptions.map(option => option.value) : [];
-                                    setFormData({
-                                        ...formData,
-                                        residues: selectedResidues
-                                    });
-                                }}
-                                styles={customStyles} // Aplicando os estilos customizados
+                                onChange={handleResiduesChange}
+                                styles={customStyles}
                             />
                         </div>
                         

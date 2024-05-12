@@ -69,6 +69,19 @@ input:focus, select:focus {
     display: flex;
 }
 
+.radio-group label {
+    display: inline-flex;
+    margin-right: 15px;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 8px;
+}
+
+.radio-group label span.required {
+    margin-left: 5px;
+}
+
 .button-wrapper {
     display: flex;
     justify-content: center;
@@ -89,7 +102,7 @@ input:focus, select:focus {
 }
 
 .button:hover {
-    background-color: #286089; 
+    background-color: #89c273; 
 }
 
 .required {
@@ -101,4 +114,31 @@ input:focus, select:focus {
 .disabled {
     background-color: rgb(189, 189, 189);
     border-color: #858585;
+}
+
+/* customSelectStyles.css */
+
+/* Cor da letra das opções ao abrir o select */
+.Select-option {
+    color: black;
+}
+
+/* Cor do "X" de excluir a tag */
+.Select-multi-value__remove {
+    color: red;
+}
+
+/* Cor de fundo das tags */
+.Select-multi-value {
+    background-color: lightgrey;
+}
+
+/* Cor de fundo do "X" ao passar o mouse */
+.Select-multi-value__remove:hover {
+    background-color: transparent;
+}
+
+/* Cor do "X" ao passar o mouse */
+.Select-multi-value__remove:hover svg {
+    color: darkred;
 }

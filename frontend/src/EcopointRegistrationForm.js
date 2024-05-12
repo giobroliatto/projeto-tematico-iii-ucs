@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import InputMask from 'react-input-mask';
+import Select from 'react-select';
 import './EcopointRegistrationForm.css';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
@@ -22,7 +23,27 @@ const EcopointRegistrationForm = () => {
         validated: false,
     });
 
+    const customStyles = {
+        option: (provided, state) => ({
+            ...provided,
+            color: state.isSelected ? 'white' : 'black',
+        }),
+        multiValueRemove: (provided, state) => ({
+            ...provided,
+            color: '#cc5f5f', // Cor do "X" de excluir a tag
+        }),
+        multiValue: (provided, state) => ({
+            ...provided,
+            backgroundColor: '#bcdbb1', // Cor de fundo das tags
+        }),
+    };
+
     const [residuesList, setResiduesList] = useState([]);
+
+    const residuesOptions = residuesList.map(residue => ({
+        value: residue._id,
+        label: residue.name
+    }));
 
     useEffect(() => {
         const fetchResidues = async () => {
@@ -91,14 +112,6 @@ const EcopointRegistrationForm = () => {
         }
     };
 
-    const handleCheckboxChange = (e) => {
-        const { name, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: checked,
-        });
-    };
-
     const handleResiduesChange = (e) => {
         const options = Array.from(e.target.selectedOptions, option => option.value);
         setFormData({
@@ -151,9 +164,9 @@ const EcopointRegistrationForm = () => {
                     <p>Desde já, nosso muito obrigado pelo seu interesse e consciência ambiental e coletiva!</p>
                 </div>
 
-                <div className="card">
-                    <h3>Formulário de Cadastro</h3>
-                    <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
+                    <div className="card">
+                        <h3>Formulário de Cadastro</h3>
 
                         <div className="row"> 
                             <div className="col-md-12 form-group">
@@ -285,17 +298,18 @@ const EcopointRegistrationForm = () => {
                         
                         <div className="form-group">
                             <label>Tipo de resíduo que o Ecoponto vai receber (selecionar um ou mais!) <span className="required">*</span></label>
-                            <select 
-                                multiple 
-                                name="residues" 
-                                size={residuesList.length}
-                                onChange={handleResiduesChange}>
-                                {residuesList.map(residue => (
-                                    <option key={residue._id} value={residue._id}>
-                                        {residue.name}
-                                    </option>
-                                ))}
-                            </select>
+                            <Select
+                                options={residuesOptions}
+                                isMulti
+                                onChange={selectedOptions => {
+                                    const selectedResidues = selectedOptions ? selectedOptions.map(option => option.value) : [];
+                                    setFormData({
+                                        ...formData,
+                                        residues: selectedResidues
+                                    });
+                                }}
+                                styles={customStyles} // Aplicando os estilos customizados
+                            />
                         </div>
                         
                         <div className="form-group radio-group">
@@ -318,12 +332,11 @@ const EcopointRegistrationForm = () => {
                                 /> Não
                             </label>
                         </div>
-                        
-                    </form>
-                </div>
-                <div className="button-wrapper">
-                    <button className="button" type="submit">Enviar</button>
-                </div>
+                    </div>
+                    <div className="button-wrapper">
+                        <button className="button" type="submit">Enviar</button>
+                    </div>
+                </form>
             </div>
         </div>
     );

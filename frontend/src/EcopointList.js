@@ -5,18 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const EcopointList = () => {
-    const [ecopoints, setEcopoints] = useState<any[]>([]);
+    const [ecopoints, setEcopoints] = useState([]);
     const [nameFilter, setNameFilter] = useState('');
     const [residueFilter, setResidueFilter] = useState('');
-    const [residueTypes, setResidueTypes] = useState<string[]>([]);
+    const [residueTypes, setResidueTypes] = useState([]);
 
     useEffect(() => {
-        axios.get<Ecopoint[]>('http://localhost:3001/ecopoints')
+        axios.get('http://localhost:3001/ecopoints')
             .then((response) => {
                 const ecopoints = response.data; 
-                setEcopoints(response.data);
+                setEcopoints(ecopoints);
 
-                const types = Array.from(new Set(ecopoints.map((e) => e.residue.name)));
+                const types = Array.from(new Set(ecopoints.flatMap(ecopoint => ecopoint.residues.map(residue => residue.name))));
                 setResidueTypes(types);
             })
             .catch((error) => {
@@ -26,8 +26,8 @@ const EcopointList = () => {
 
     const filteredEcopoints = ecopoints.filter(
         (ecopoint) =>
-            ecopoint.name.toLowerCase().includes(nameFilter.toLowerCase()) &&
-            ecopoint.residue.name.toLowerCase().includes(residueFilter.toLowerCase())
+            ecopoint.companyName.toLowerCase().includes(nameFilter.toLowerCase()) &&
+            ecopoint.residues.some(residue => residue.name.toLowerCase().includes(residueFilter.toLowerCase()))
     );
 
     const clearNameFilter = () => {
@@ -79,9 +79,11 @@ const EcopointList = () => {
                     ) : (
                         filteredEcopoints.map((ecopoint) => (
                             <div className="card" key={ecopoint._id}>
-                                <h2>{ecopoint.name}</h2>
-                                <p>Resíduo: {ecopoint.residue.name}</p>
-                                <p>CEP: {ecopoint.cep}</p>
+                                <h2>{ecopoint.companyName}</h2>
+                                <p>
+                                    Resíduos: {ecopoint.residues.map(residue => residue.name).join(', ')}
+                                </p>
+                                <p>CEP: {ecopoint.companyCep}</p>
                             </div>
                         ))
                     )}
@@ -94,12 +96,3 @@ const EcopointList = () => {
 };
 
 export default EcopointList;
-
-interface Ecopoint {
-    name: string;
-    residue: {
-      name: string;
-    };
-    cep: string;
-    _id: string;
-}

@@ -103,7 +103,7 @@ h1 {
 }
   
 .card {
-    background-color: #1a932e; 
+    background-color: rgba(3, 37, 0, 0.3);
     border-radius: 8px; 
     padding: 16px; 
     margin: 10px; 

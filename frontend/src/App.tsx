@@ -12,7 +12,6 @@ const App = () => {
             <main className="content">
                 {/* <EcopointList /> */}
                 <EcopointRegistrationForm />
-                {/* <Map /> */}
             </main>
     
             <Footer />

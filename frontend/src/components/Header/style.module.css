@@ -1,11 +1,7 @@
-.App-header {
+.App_header {
     background-color: rgb(249, 255, 248);
     height: 90px; 
     display: flex;
     align-items: center;
     justify-content: center;
-}
-  
-li {
-    list-style: none;
 }

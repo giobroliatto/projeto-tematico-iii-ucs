@@ -1,41 +1,45 @@
-input {
+.input_registration {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px
-  }
+}
 
-h1, h2, h3 {
+.title1, .title2, .title3 {
     color: #f7fff8;
     text-align: center;
 }
 
-h1 {
+.title1 {
     font-size: 36px;
 }
 
-h2 {
+.title2 {
     margin-top: 0px;
     margin-bottom: 0px;
     font-size: 24px;
 }
 
-h3 {
+.title3 {
     margin-top: 0px;
     margin-bottom: 30px;
     font-size: 28px;
 }
 
-p {
+.paragraph {
     text-align: justify;
+}
+
+.wrapper_all {
+    justify-content: center;
+    display: flex;
 }
 
 .wrapper {
     background-color: rgba(0, 0, 0, 0.2);
     width: 50%;
-    left: 23%;
     position: relative;
     border-radius: 30px;
     padding: 20px;
@@ -48,7 +52,7 @@ p {
     margin-bottom: 20px; 
 }
 
-.form-group {
+.form_group {
     margin-bottom: 20px; 
 }
 
@@ -59,7 +63,7 @@ label {
     margin-bottom: 7px;
 }
 
-input, select {
+.input_registration, select {
     width: 100%;
     padding: 10px;
     border: 1px solid #cccccc;
@@ -69,29 +73,29 @@ input, select {
     box-sizing: border-box;
 }
 
-input:focus, select:focus {
+.input_registration:focus, select:focus {
     border-color: #3282b8;
     outline: none;
 }
 
-.radio-group {
+.radio_group {
     display: flex;
 }
 
-.radio-group label {
+.radio_group label {
     display: inline-flex;
     margin-right: 15px;
 }
 
-.radio-group input[type="radio"] {
+.radio_group .input_registration[type="radio"] {
     margin-right: 8px;
 }
 
-.radio-group label span.required {
+.radio_group label span.required {
     margin-left: 5px;
 }
 
-.button-wrapper {
+.button_wrapper {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;

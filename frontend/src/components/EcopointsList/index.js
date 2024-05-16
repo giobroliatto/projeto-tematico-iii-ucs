@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import './EcopointList.css';
+import s from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-const EcopointList = () => {
+const EcopointsList = () => {
     const [ecopoints, setEcopoints] = useState([]);
     const [nameFilter, setNameFilter] = useState('');
     const [residueFilter, setResidueFilter] = useState('');
@@ -35,16 +35,16 @@ const EcopointList = () => {
     };
 
     return (
-        <div className="content">
-            <h1>Ecopontos</h1>
+        <div className={s.content}>
+            <h1 className={s.title1}>Ecopontos</h1>
 
-            <div className="wrapper">
+            <div className={s.wrapper}>
 
-                <section className="filter-section">
+                <section className={s.filter_section}>
                     <select
                         value={residueFilter}
                         onChange={(e) => setResidueFilter(e.target.value)}
-                        className="filter-select"
+                        className={s.filter_select}
                     >
                         <option value="">Todos os resíduos</option>
                         {residueTypes.map((type) => (
@@ -54,7 +54,7 @@ const EcopointList = () => {
                         ))}
                     </select>
 
-                    <button className="select-residue-button">
+                    <button className={s.select_residue_button}>
                         <FontAwesomeIcon icon={faChevronDown} />
                     </button>
 
@@ -63,22 +63,22 @@ const EcopointList = () => {
                         value={nameFilter}
                         onChange={(e) => setNameFilter(e.target.value)}
                         placeholder="Digite o nome de um ecoponto..."
-                        className="filter-input"
+                        className={s.filter_input}
                     />
 
-                    <button className="clear-filters-button" onClick={clearNameFilter}>
+                    <button className={s.clear_filters_button} onClick={clearNameFilter}>
                         <FontAwesomeIcon icon={faTimes} />
                     </button>
                 </section>
 
-                <section className="ecopoints-section">
+                <section className={s.ecopoints_section}>
                     {filteredEcopoints.length === 0 ? (
-                        <div className="no-ecopoints">
+                        <div className={s.no_ecopoints}>
                             Nenhum ecoponto encontrado
                         </div>
                     ) : (
                         filteredEcopoints.map((ecopoint) => (
-                            <div className="card" key={ecopoint._id}>
+                            <div className={s.card} key={ecopoint._id}>
                                 <h2>{ecopoint.companyName}</h2>
                                 <p>
                                     Resíduos: {ecopoint.residues.map(residue => residue.name).join(', ')}
@@ -95,4 +95,4 @@ const EcopointList = () => {
     );
 };
 
-export default EcopointList;
+export default EcopointsList;

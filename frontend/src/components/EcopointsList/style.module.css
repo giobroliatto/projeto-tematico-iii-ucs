@@ -7,7 +7,7 @@ input, select {
     -moz-osx-font-smoothing: grayscale;
 }
   
-h1 {
+.title1 {
     text-align: center;
     color: #f7fff8;
     font-weight: 700;
@@ -24,7 +24,7 @@ h1 {
     padding-bottom: 16px;
 }
   
-.filter-section {
+.filter_section {
     display: flex;
     gap: 20px;
     margin-top: 14px;
@@ -34,7 +34,7 @@ h1 {
     margin-bottom: 5px;
 }
   
-.filter-input, .filter-select {
+.filter_input, .filter_select {
     background: rgb(249, 255, 248);
     border: 1px solid #ffffff;
     border-radius: 30px;
@@ -49,12 +49,12 @@ h1 {
     }
 }
   
-.filter-input {
+.filter_input {
     width: 60%;
     padding: 20px;
 }
   
-.clear-filters-button {
+.clear_filters_button {
     margin-top: -12px;
     margin-left: -55px;
     background: transparent; 
@@ -65,11 +65,11 @@ h1 {
     transition: color 0.3s; 
 }
   
-.clear-filters-button:hover {
+.clear_filters_button:hover {
     color: #ff9090; 
 }
   
-.filter-select {
+.filter_select {
     width: 40%;
     height: 47px;
     padding-left: 13px;
@@ -77,16 +77,16 @@ h1 {
     margin-right: 3px;
 }
   
-.filter-input:hover, .filter-select:hover {
+.filter_input:hover, .filter_select:hover {
     border-color: #3D88A8; 
 }
   
-.filter-input:focus, .filter-select:focus {
+.filter_input:focus, .filter_select:focus {
     outline: none; 
     border-color: #043449; 
 }
   
-.select-residue-button {
+.select_residue_button {
     margin-top: -12px;
     margin-left: -53px;
     background: transparent; 
@@ -96,7 +96,7 @@ h1 {
     pointer-events: none;
 }
   
-.ecopoints-section {
+.ecopoints_section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; 
@@ -119,7 +119,7 @@ h1 {
     margin: 8px 0;
 }
   
-.no-ecopoints {
+.no_ecopoints {
     text-align: center;
     color: white;
     font-size: 18px;

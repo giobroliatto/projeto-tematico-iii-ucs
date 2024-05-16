@@ -1,10 +1,10 @@
 import SocialMediaIcons from '../SocialMediaIcons';
-import './style.css';
+import s from './style.module.css';
 
 function Footer() {
     return (
-        <footer className='App-footer'>
-            <div className='footer-description'>
+        <footer className={s.App_footer}>
+            <div className={s.footer_description}>
                 caxiaslixozero@gmail.com
             </div>
 

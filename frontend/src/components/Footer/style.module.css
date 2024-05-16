@@ -1,4 +1,4 @@
-.App-footer {
+.App_footer {
     background-color: transparent;
     padding: 10px;
     height: 50px; 
@@ -11,7 +11,7 @@
     margin-left: 9%;
 }
 
-.footer-description {
+.footer_description {
     color: #ffffff;
     font-size: 16px;
 }

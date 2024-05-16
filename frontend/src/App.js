@@ -1,8 +1,8 @@
 import './App.css';
-import EcopointList from './EcopointList';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import EcopointRegistrationForm from './EcopointRegistrationForm';
+import EcopointsList from './components/EcopointsList';
+import EcopointRegistration from './components/EcopointRegistration';
 
 const App = () => {
     return (
@@ -10,8 +10,8 @@ const App = () => {
             <Header />
     
             <main className="content">
-                {/* <EcopointList /> */}
-                <EcopointRegistrationForm />
+                <EcopointsList />
+                <EcopointRegistration />
             </main>
     
             <Footer />

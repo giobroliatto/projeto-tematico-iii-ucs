@@ -2,6 +2,7 @@
     font-size: 22px;
     margin-bottom: 20px;
     margin-top: 20px;
+    text-align: center;
 }
 
 .weekday {
@@ -9,19 +10,29 @@
     width: 100%;
 }
 
-.weekday-checkbox {
+.weekday_checkbox {
     width: 100px;
     margin-left: -25px;
     margin-right: -15px;
 }
 
-.schedule-section {
+.schedule_section {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     padding: 10px;
     padding-bottom: 5px;
     padding-left: 20px;
     margin-bottom: 10px;
+}
+
+.input_schedule {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    background-color: #f7fff8;
+    transition: border-color 0.3s; 
+    box-sizing: border-box;
 }
 
 .times {
@@ -35,17 +46,17 @@
     margin-right: 15px;
 }
 
-.times-group {
+.times_group {
     width: 25%;
     margin-right: 30px;
 }
 
-.button-wrapper {
+.button_wrapper {
     margin-top: 32px;
     margin-left: -10px;
 }
 
-.add-button {
+.add_button {
     background-color: transparent;
     border: none;
     font-size: 24px;
@@ -54,11 +65,11 @@
     transition: color 0.3s;
 }
 
-.add-button:hover {
+.add_button:hover {
     color: rgb(44, 190, 56);
 }
 
-.remove-button {
+.remove_button {
     background-color: transparent;
     border: none;
     font-size: 20px;
@@ -68,6 +79,6 @@
     transition: color 0.3s;
 }
 
-.remove-button:hover {
+.remove_button:hover {
     color: rgb(221, 12, 12);
 }

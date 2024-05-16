@@ -1,11 +1,11 @@
 import IconsHeader from '../IconsHeader';
 import Logo from '../Logo';
 import OptionsHeader from '../OptionsHeader';
-import './style.css';
+import s from './style.module.css';
 
 function Header() {
     return (
-        <header className='App-header'> 
+        <header className={s.App_header}> 
             <Logo />
             <OptionsHeader />
             <IconsHeader />

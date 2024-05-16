@@ -1,12 +1,12 @@
-import './style.css';
+import s from './style.module.css';
 
 const options = ['ECOPONTOS', 'RECICLOPÉDIA'];
 
 function OptionsHeader() {
     return(
-        <ul className='options'>
+        <ul className={s.options}>
             {options.map((text, index) => (
-                <li key={index} className='option'>
+                <li key={index} className={s.option}>
                     {text}
                 </li>
             ))}

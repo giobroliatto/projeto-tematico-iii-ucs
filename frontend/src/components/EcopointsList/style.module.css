@@ -14,6 +14,14 @@ input, select {
     font-size: 40px;
 }
 
+.title2 {
+    color: #f7fff8;
+    font-weight: 700;
+    font-size: 22px;
+    margin-left: 2%;
+    margin-bottom: 25px;
+}
+
 .wrapper_all {
     justify-content: center;
     display: flex;
@@ -35,69 +43,7 @@ input, select {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
     width: 96%;
     margin-left: 2%;
-    margin-bottom: 5px;
-}
-  
-.filter_input, .filter_select {
-    background: rgb(249, 255, 248);
-    border: 1px solid #ffffff;
-    border-radius: 30px;
-    height: 5px;
-    color: #000000;
-    font-size: 16px;
     margin-bottom: 15px;
-    
-    &::placeholder {
-      color: #929793;
-      font-size: 16px;
-    }
-}
-  
-.filter_input {
-    width: 60%;
-    padding: 20px;
-}
-  
-.clear_filters_button {
-    margin-top: -12px;
-    margin-left: -55px;
-    background: transparent; 
-    border: none; 
-    color: #3D88A8; 
-    cursor: pointer; 
-    font-size: 20px; 
-    transition: color 0.3s; 
-}
-  
-.clear_filters_button:hover {
-    color: #ff9090; 
-}
-  
-.filter_select {
-    width: 40%;
-    height: 47px;
-    padding-left: 13px;
-    appearance: none;
-    margin-right: 3px;
-}
-  
-.filter_input:hover, .filter_select:hover {
-    border-color: #1c7ea8; 
-}
-  
-.filter_input:focus, .filter_select:focus {
-    outline: none; 
-    border-color: #1a388d; 
-}
-  
-.select_residue_button {
-    margin-top: -12px;
-    margin-left: -53px;
-    background: transparent; 
-    border: none; 
-    color: #3D88A8; 
-    font-size: 18px; 
-    pointer-events: none;
 }
 
 .location_dot_button {
@@ -108,6 +54,37 @@ input, select {
     font-size: 24px;
     padding: 10px 15px;
     cursor: pointer;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.tag {
+    background-color: #C6DECA;
+    color: #1F6686;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.tag:hover {
+    background-color: rgb(203, 234, 250);
+}
+
+.tag_selected {
+    background-color: #1F6686;
+    color: #C6DECA;
+}
+
+.tag_selected:hover {
+    background-color: #397896;
 }
   
 .ecopoints_section {

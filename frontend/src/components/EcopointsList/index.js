@@ -6,8 +6,7 @@ import { faTimes, faChevronDown, faLocationDot } from '@fortawesome/free-solid-s
 
 const EcopointsList = () => {
     const [ecopoints, setEcopoints] = useState([]);
-    const [nameFilter, setNameFilter] = useState('');
-    const [residueFilter, setResidueFilter] = useState('');
+    const [selectedResidues, setSelectedResidues] = useState([]);
     const [residueTypes, setResidueTypes] = useState([]);
 
     useEffect(() => {
@@ -24,53 +23,43 @@ const EcopointsList = () => {
             });
     }, []);
 
+    const toggleResidue = (residue) => {
+        const isSelected = selectedResidues.includes(residue);
+        if (isSelected) {
+            setSelectedResidues(selectedResidues.filter(selected => selected !== residue));
+        } else {
+            setSelectedResidues([...selectedResidues, residue]);
+        }
+    };
+
     const filteredEcopoints = ecopoints.filter(
         (ecopoint) =>
-            ecopoint.companyName.toLowerCase().includes(nameFilter.toLowerCase()) &&
-            ecopoint.residues.some(residue => residue.name.toLowerCase().includes(residueFilter.toLowerCase()))
+            selectedResidues.every(residue => ecopoint.residues.some(ecopointResidue => ecopointResidue.name === residue))
     );
-
-    const clearNameFilter = () => {
-        setNameFilter('');
-    };
 
     return (
         <div className={s.content}>
+            
             <h1 className={s.title1}>Ecopontos</h1>
-
             <div className={s.wrapper_all}>
 
                 <div className={s.wrapper}>
-
+                    
+                    <h2 className={s.title2}>Tipos de resíduos</h2>
                     <section className={s.filter_section}>
-                        <select
-                            value={residueFilter}
-                            onChange={(e) => setResidueFilter(e.target.value)}
-                            className={s.filter_select}
-                        >
-                            <option value="">Todos os resíduos</option>
+
+                        <div className={s.tags}>
                             {residueTypes.map((type) => (
-                                <option key={type} value={type.toLowerCase()}>
+                                <div
+                                    key={type}
+                                    onClick={() => toggleResidue(type)}
+                                    className={`${s.tag} ${selectedResidues.includes(type) ? s.tag_selected : ''}`}
+                                >
                                     {type}
-                                </option>
+                                </div>
                             ))}
-                        </select>
+                        </div>
 
-                        <button className={s.select_residue_button}>
-                            <FontAwesomeIcon icon={faChevronDown} />
-                        </button>
-
-                        <input
-                            type="text"
-                            value={nameFilter}
-                            onChange={(e) => setNameFilter(e.target.value)}
-                            placeholder="Digite o nome de um ecoponto..."
-                            className={s.filter_input}
-                        />
-
-                        <button className={s.clear_filters_button} onClick={clearNameFilter}>
-                            <FontAwesomeIcon icon={faTimes} />
-                        </button>
                     </section>
 
                     <section className={s.ecopoints_section}>
@@ -97,11 +86,8 @@ const EcopointsList = () => {
                             ))
                         )}
                     </section>
-
                 </div>
-                
             </div>
-
         </div>
     );
 };
@@ -117,6 +103,5 @@ function openMap(companyStreet, companyNumber, companyDistric, companyCity) {
 
     window.open(mapsUrl);
 }
-
 
 export default EcopointsList;

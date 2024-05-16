@@ -82,12 +82,12 @@ input, select {
 }
   
 .filter_input:hover, .filter_select:hover {
-    border-color: #3D88A8; 
+    border-color: #1c7ea8; 
 }
   
 .filter_input:focus, .filter_select:focus {
     outline: none; 
-    border-color: #043449; 
+    border-color: #1a388d; 
 }
   
 .select_residue_button {
@@ -98,6 +98,16 @@ input, select {
     color: #3D88A8; 
     font-size: 18px; 
     pointer-events: none;
+}
+
+.location_dot_button {
+    background: #3D88A8;
+    border: none;
+    border-radius: 10px;
+    color: #f7fdff;
+    font-size: 24px;
+    padding: 10px 15px;
+    cursor: pointer;
 }
   
 .ecopoints_section {

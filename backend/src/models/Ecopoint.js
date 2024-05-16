@@ -10,6 +10,7 @@ const ecopointSchema = new mongoose.Schema({
     companyCep: { type: Number, required: true },
     companyStreet: { type: String, required: true },
     companyDistrict: { type: String, required: true },
+    companyCity: { type: String, required: true },
     companyNumber: { type: Number, required: true },
     companyComplement: { type: Number },
     residues: [residueSchema],

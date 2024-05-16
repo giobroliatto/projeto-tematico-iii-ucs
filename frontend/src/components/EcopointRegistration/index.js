@@ -216,7 +216,7 @@ const EcopointRegistration = () => {
                                     />
                                 </div>
                             <div className={`col-md-4 ${s.form_group}`}>
-                                <label>Telefone para contato (WhatsApp) <span className={s.required}>*</span></label>
+                                <label>WhatsApp <span className={s.required}>*</span></label>
                                 <InputMask
                                     mask="(99) 99999-9999"
                                     value={formData.responsibleNumber}

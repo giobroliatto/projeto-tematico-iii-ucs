@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import s from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faChevronDown, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 const EcopointsList = () => {
     const [ecopoints, setEcopoints] = useState([]);
@@ -86,6 +86,13 @@ const EcopointsList = () => {
                                         Resíduos: {ecopoint.residues.map(residue => residue.name).join(', ')}
                                     </p>
                                     <p>CEP: {ecopoint.companyCep}</p>
+                                    <button 
+                                        className={s.location_dot_button}
+                                        onClick={() => 
+                                            openMap(ecopoint.companyStreet, ecopoint.companyNumber, ecopoint.companyDistrict, ecopoint.companyCity)
+                                        }>
+                                        <FontAwesomeIcon icon={faLocationDot} />
+                                    </button>
                                 </div>
                             ))
                         )}
@@ -98,5 +105,18 @@ const EcopointsList = () => {
         </div>
     );
 };
+
+function openMap(companyStreet, companyNumber, companyDistric, companyCity) {
+    const street = companyStreet || '';
+    const number = companyNumber || '';
+    const district = companyDistric || '';
+    const city = companyCity || '';
+
+    const address = `${street} ${number} ${district} ${city}`;
+    const mapsUrl = `https://www.openstreetmap.org/search?query=${encodeURIComponent(address)}`;
+
+    window.open(mapsUrl);
+}
+
 
 export default EcopointsList;

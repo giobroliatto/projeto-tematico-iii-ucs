@@ -10,7 +10,7 @@ body {
   background-attachment: fixed;
 }
 
-.App-container {
+.App_container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;

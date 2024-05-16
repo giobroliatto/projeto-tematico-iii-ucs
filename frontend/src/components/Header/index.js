@@ -3,12 +3,12 @@ import Logo from '../Logo';
 import OptionsHeader from '../OptionsHeader';
 import s from './style.module.css';
 
-function Header() {
+function Header({ onOptionClick }) {
     return (
         <header className={s.App_header}> 
             <Logo />
-            <OptionsHeader />
-            <IconsHeader />
+            <OptionsHeader onOptionClick={onOptionClick} />
+            <IconsHeader onOptionClick={onOptionClick} />
         </header>
     )
 }

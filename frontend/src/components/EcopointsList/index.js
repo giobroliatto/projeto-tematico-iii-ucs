@@ -38,57 +38,61 @@ const EcopointsList = () => {
         <div className={s.content}>
             <h1 className={s.title1}>Ecopontos</h1>
 
-            <div className={s.wrapper}>
+            <div className={s.wrapper_all}>
 
-                <section className={s.filter_section}>
-                    <select
-                        value={residueFilter}
-                        onChange={(e) => setResidueFilter(e.target.value)}
-                        className={s.filter_select}
-                    >
-                        <option value="">Todos os resíduos</option>
-                        {residueTypes.map((type) => (
-                            <option key={type} value={type.toLowerCase()}>
-                                {type}
-                            </option>
-                        ))}
-                    </select>
+                <div className={s.wrapper}>
 
-                    <button className={s.select_residue_button}>
-                        <FontAwesomeIcon icon={faChevronDown} />
-                    </button>
+                    <section className={s.filter_section}>
+                        <select
+                            value={residueFilter}
+                            onChange={(e) => setResidueFilter(e.target.value)}
+                            className={s.filter_select}
+                        >
+                            <option value="">Todos os resíduos</option>
+                            {residueTypes.map((type) => (
+                                <option key={type} value={type.toLowerCase()}>
+                                    {type}
+                                </option>
+                            ))}
+                        </select>
 
-                    <input
-                        type="text"
-                        value={nameFilter}
-                        onChange={(e) => setNameFilter(e.target.value)}
-                        placeholder="Digite o nome de um ecoponto..."
-                        className={s.filter_input}
-                    />
+                        <button className={s.select_residue_button}>
+                            <FontAwesomeIcon icon={faChevronDown} />
+                        </button>
 
-                    <button className={s.clear_filters_button} onClick={clearNameFilter}>
-                        <FontAwesomeIcon icon={faTimes} />
-                    </button>
-                </section>
+                        <input
+                            type="text"
+                            value={nameFilter}
+                            onChange={(e) => setNameFilter(e.target.value)}
+                            placeholder="Digite o nome de um ecoponto..."
+                            className={s.filter_input}
+                        />
 
-                <section className={s.ecopoints_section}>
-                    {filteredEcopoints.length === 0 ? (
-                        <div className={s.no_ecopoints}>
-                            Nenhum ecoponto encontrado
-                        </div>
-                    ) : (
-                        filteredEcopoints.map((ecopoint) => (
-                            <div className={s.card} key={ecopoint._id}>
-                                <h2>{ecopoint.companyName}</h2>
-                                <p>
-                                    Resíduos: {ecopoint.residues.map(residue => residue.name).join(', ')}
-                                </p>
-                                <p>CEP: {ecopoint.companyCep}</p>
+                        <button className={s.clear_filters_button} onClick={clearNameFilter}>
+                            <FontAwesomeIcon icon={faTimes} />
+                        </button>
+                    </section>
+
+                    <section className={s.ecopoints_section}>
+                        {filteredEcopoints.length === 0 ? (
+                            <div className={s.no_ecopoints}>
+                                Nenhum ecoponto encontrado
                             </div>
-                        ))
-                    )}
-                </section>
+                        ) : (
+                            filteredEcopoints.map((ecopoint) => (
+                                <div className={s.card} key={ecopoint._id}>
+                                    <h2>{ecopoint.companyName}</h2>
+                                    <p>
+                                        Resíduos: {ecopoint.residues.map(residue => residue.name).join(', ')}
+                                    </p>
+                                    <p>CEP: {ecopoint.companyCep}</p>
+                                </div>
+                            ))
+                        )}
+                    </section>
 
+                </div>
+                
             </div>
 
         </div>

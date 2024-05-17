@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import s from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faChevronDown, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faChevronDown, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const EcopointsList = () => {
     const [ecopoints, setEcopoints] = useState([]);
@@ -37,17 +37,25 @@ const EcopointsList = () => {
             selectedResidues.every(residue => ecopoint.residues.some(ecopointResidue => ecopointResidue.name === residue))
     );
 
+    const openGoogleMaps = (companyStreet, companyNumber, companyDistric, companyCity) => {
+        const street = companyStreet || '';
+        const number = companyNumber || '';
+        const district = companyDistric || '';
+        const city = companyCity || '';
+
+        const address = `${street} ${number} ${district} ${city}`;
+
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+        window.open(mapsUrl);
+    };
+
     return (
         <div className={s.content}>
-            
             <h1 className={s.title1}>Ecopontos</h1>
             <div className={s.wrapper_all}>
-
                 <div className={s.wrapper}>
-                    
                     <h2 className={s.title2}>Tipos de resíduos</h2>
                     <section className={s.filter_section}>
-
                         <div className={s.tags}>
                             {residueTypes.map((type) => (
                                 <div
@@ -59,9 +67,7 @@ const EcopointsList = () => {
                                 </div>
                             ))}
                         </div>
-
                     </section>
-
                     <section className={s.ecopoints_section}>
                         {filteredEcopoints.length === 0 ? (
                             <div className={s.no_ecopoints}>
@@ -70,17 +76,18 @@ const EcopointsList = () => {
                         ) : (
                             filteredEcopoints.map((ecopoint) => (
                                 <div className={s.card} key={ecopoint._id}>
-                                    <h2>{ecopoint.companyName}</h2>
-                                    <p>
-                                        Resíduos: {ecopoint.residues.map(residue => residue.name).join(', ')}
-                                    </p>
-                                    <p>CEP: {ecopoint.companyCep}</p>
+                                    <h3 className={s.title3}>{ecopoint.companyName}</h3>
+                                    <div className={s.residue_tags}>
+                                        {ecopoint.residues.map((residue, index) => (
+                                            <div key={index} className={s.residue_tag}>
+                                                {residue.name}
+                                            </div>
+                                        ))}
+                                    </div>
                                     <button 
                                         className={s.location_dot_button}
-                                        onClick={() => 
-                                            openMap(ecopoint.companyStreet, ecopoint.companyNumber, ecopoint.companyDistrict, ecopoint.companyCity)
-                                        }>
-                                        <FontAwesomeIcon icon={faLocationDot} />
+                                        onClick={() => openGoogleMaps(ecopoint.companyStreet, ecopoint.companyNumber, ecopoint.companyDistrict, ecopoint.companyCity)}>
+                                        <FontAwesomeIcon icon={faMapMarkerAlt} />
                                     </button>
                                 </div>
                             ))
@@ -91,17 +98,5 @@ const EcopointsList = () => {
         </div>
     );
 };
-
-function openMap(companyStreet, companyNumber, companyDistric, companyCity) {
-    const street = companyStreet || '';
-    const number = companyNumber || '';
-    const district = companyDistric || '';
-    const city = companyCity || '';
-
-    const address = `${street} ${number} ${district} ${city}`;
-    const mapsUrl = `https://www.openstreetmap.org/search?query=${encodeURIComponent(address)}`;
-
-    window.open(mapsUrl);
-}
 
 export default EcopointsList;

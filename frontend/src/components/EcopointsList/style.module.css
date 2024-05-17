@@ -22,6 +22,12 @@ input, select {
     margin-bottom: 25px;
 }
 
+.title3 {
+    color: #f7fff8;
+    font-weight: 700;
+    font-size: 22px;
+}
+
 .wrapper_all {
     justify-content: center;
     display: flex;
@@ -29,7 +35,7 @@ input, select {
   
 .wrapper {
     background-color: rgba(255, 255, 255, 0.2);
-    width: 70%;
+    width: 60%;
     position: relative;
     border-radius: 30px;
     padding: 10px;
@@ -47,7 +53,7 @@ input, select {
 }
 
 .location_dot_button {
-    background: #3D88A8;
+    background: #1F6686;
     border: none;
     border-radius: 10px;
     color: #f7fdff;
@@ -86,6 +92,27 @@ input, select {
 .tag_selected:hover {
     background-color: #397896;
 }
+
+.residue_tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+  
+.residue_tag {
+    background-color: #ffffff1f;
+    color: #C6DECA;
+    border-radius: 20px;
+    padding: 5px 12px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.residue_tag:last-child {
+    margin-right: 0;
+}
   
 .ecopoints_section {
     display: flex;
@@ -94,20 +121,13 @@ input, select {
 }
   
 .card {
-    background-color: rgba(3, 37, 0, 0.3);
+    background-color: rgba(27, 83, 22, 0.3);
     border-radius: 8px; 
     padding: 16px; 
     margin: 10px; 
-    width: 200px; 
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
     text-align: center; 
-}
-  
-.card h2 {
-    font-size: 1.5em;
-}
-  
-.card p {
-    margin: 8px 0;
 }
   
 .no_ecopoints {
@@ -118,3 +138,22 @@ input, select {
     margin-bottom: 12px;
 }
   
+@media screen and (max-width: 1024px) {
+    .card {
+        width: calc(50% - 20px); 
+    }
+
+    .wrapper {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+
+    .wrapper {
+        width: 80%;
+    }
+}

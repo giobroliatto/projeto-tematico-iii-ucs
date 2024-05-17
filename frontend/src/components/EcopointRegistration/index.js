@@ -40,7 +40,6 @@ const EcopointRegistration = () => {
         control: (provided, state) => ({
             ...provided,
             borderRadius: '10px',
-            height: '41px'
         }),
     };
 

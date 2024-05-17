@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import s from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faChevronDown, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const EcopointsList = () => {
     const [ecopoints, setEcopoints] = useState([]);
@@ -37,10 +37,10 @@ const EcopointsList = () => {
             selectedResidues.every(residue => ecopoint.residues.some(ecopointResidue => ecopointResidue.name === residue))
     );
 
-    const openGoogleMaps = (companyStreet, companyNumber, companyDistric, companyCity) => {
+    const openGoogleMaps = (companyStreet, companyNumber, companyDistrict, companyCity) => {
         const street = companyStreet || '';
         const number = companyNumber || '';
-        const district = companyDistric || '';
+        const district = companyDistrict || '';
         const city = companyCity || '';
 
         const address = `${street} ${number} ${district} ${city}`;
@@ -84,11 +84,16 @@ const EcopointsList = () => {
                                             </div>
                                         ))}
                                     </div>
-                                    <button 
-                                        className={s.location_dot_button}
-                                        onClick={() => openGoogleMaps(ecopoint.companyStreet, ecopoint.companyNumber, ecopoint.companyDistrict, ecopoint.companyCity)}>
-                                        <FontAwesomeIcon icon={faMapMarkerAlt} />
-                                    </button>
+                                    <div className={s.address_wrapper}>
+                                        <div className={s.address}>
+                                            {ecopoint.companyStreet}, {ecopoint.companyNumber}{ecopoint.companyComplement && `/${ecopoint.companyComplement}`}, {ecopoint.companyDistrict}
+                                        </div>
+                                        <button 
+                                            className={s.location_dot_button}
+                                            onClick={() => openGoogleMaps(ecopoint.companyStreet, ecopoint.companyNumber, ecopoint.companyDistrict, ecopoint.companyCity)}>
+                                            <FontAwesomeIcon icon={faMapMarkerAlt} />
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         )}

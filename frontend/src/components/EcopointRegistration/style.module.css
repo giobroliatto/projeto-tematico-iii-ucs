@@ -39,7 +39,7 @@
 
 .wrapper {
     background-color: rgba(0, 0, 0, 0.2);
-    width: 50%;
+    width: 60%;
     position: relative;
     border-radius: 30px;
     padding: 20px;
@@ -148,4 +148,16 @@ label {
 
 .Select-multi-value__remove:hover svg {
     color: darkred;
+}
+
+@media screen and (max-width: 1200px) {
+    .wrapper {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        width: 80%;
+    }
 }

@@ -36,7 +36,7 @@ input, select {
 }
   
 .wrapper {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     width: 60%;
     position: relative;
     border-radius: 30px;
@@ -142,7 +142,7 @@ input, select {
 }
   
 .card {
-    background-color: rgba(27, 83, 22, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 8px; 
     padding: 16px; 
     margin: 10px; 
@@ -162,7 +162,7 @@ input, select {
     margin-bottom: 12px;
 }
   
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1200px) {
     .card {
         width: calc(50% - 20px); 
     }

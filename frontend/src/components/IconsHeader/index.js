@@ -16,7 +16,7 @@ function IconsHeader({ onOptionClick }) {
             <Tooltip id="profile-tooltip" />
             <ul className={s.icons}>
                 {icons.map((icon, index) => (
-                    <li key={index} className={s.icon} onClick={() => handleClick(index === 0 ? 'EcopointRegistration' : 'UserProfile')}>
+                    <li key={index} className={s.icon} onClick={() => handleClick(index === 0 ? 'EcopointRegistration' : 'ResiduesForm')}>
                         <FontAwesomeIcon 
                             icon={icon} 
                             data-tooltip-id={index === 0 ? "ecopoint-tooltip" : "profile-tooltip"} 

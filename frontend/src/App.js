@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import EcopointsList from './components/EcopointsList';
 import EcopointRegistration from './components/EcopointRegistration';
+import ResiduesForm from './components/ResiduesForm';
 
 const App = () => {
     const [activeComponent, setActiveComponent] = useState('ECOPONTOS');
@@ -19,7 +20,7 @@ const App = () => {
             <main className={s.content}>
                 {activeComponent === 'ECOPONTOS' && <EcopointsList />}
                 {activeComponent === 'EcopointRegistration' && <EcopointRegistration />}
-                {/* {activeComponent === 'UserProfile' && <UserProfile />} */}
+                {activeComponent === 'ResiduesForm' && <ResiduesForm />}
             </main>
     
             <Footer />

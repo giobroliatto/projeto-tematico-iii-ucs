@@ -151,7 +151,7 @@ const EcopointRegistration = () => {
         });
 
         if (response.ok) {
-            toast.success('Informações enviadas para análise', {
+            toast.success('Dados enviados para análise. Você será comunicado quando seu ecoponto for validado.', {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,

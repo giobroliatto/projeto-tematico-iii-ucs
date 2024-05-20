@@ -1,7 +1,7 @@
 import s from './style.module.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faX } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const SchedulePicker = ({ schedules, setSchedules }) => {
     const [days, setDays] = useState([
@@ -129,7 +129,7 @@ const SchedulePicker = ({ schedules, setSchedules }) => {
                                     </div>
 
                                     <div className={s.button_wrapper}>
-                                        <button className={s.remove_button} onClick={() => handleRemoveTime(index)}><FontAwesomeIcon icon={faX} /></button>
+                                        <button className={s.remove_button} onClick={() => handleRemoveTime(index)}><FontAwesomeIcon icon={faTimes} /></button>
                                     </div>
                                 </div>
                                     

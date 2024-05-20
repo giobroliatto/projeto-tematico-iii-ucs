@@ -1,4 +1,5 @@
 import { residue } from "../models/Residue.js";
+import ecopoint from "../models/Ecopoint.js";
 
 class ResidueController {
 
@@ -42,13 +43,23 @@ class ResidueController {
 
     static async removeResidue(req, res) {
         try {
-            const id = req.params.id;
-            await residue.findByIdAndDelete(id);
-            res.status(200).send({ message: "removido" });
-        } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao remover residue. id: ${id}` })
+            const residueId = req.params.id;
+    
+            const ecopointsWithResidue = await ecopoint.find({ 'residues._id': residueId });
+    
+            if (ecopointsWithResidue.length > 0) {
+                return res.status(400).json({ message: 'Não é possível remover o resíduo pois ele está vinculado a ecopontos.' });
+            }
+    
+            await residue.findByIdAndDelete(residueId);
+            
+            res.status(200).json({ message: 'Resíduo removido com sucesso.' });
+        } catch (error) {
+            console.error('Erro ao remover resíduo:', error);
+            res.status(500).json({ message: 'Erro interno ao tentar remover o resíduo.' });
         }
     }
+    
 };
 
 export default ResidueController;

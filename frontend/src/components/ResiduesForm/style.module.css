@@ -42,21 +42,90 @@
 .icon_wrapper {
     display: flex; 
     justify-content: space-between;
+    margin-left: 20px;
 }
 
-.icon_edit, .icon_remove {
+.icon_edit, .icon_remove, .icon_check, .icon_cancel {
     font-size: 18px;
     margin-top: -4px;
     margin-right: 15px;
     cursor: pointer;
+    transition: color 0.2s;
+    color: rgb(249, 255, 248);
 }
 
-.icon_edit {
-    color: rgb(95, 159, 243);
+.icon_edit:hover {
+    color: rgb(57, 117, 196);
 }
 
-.icon_remove {
-    color: rgb(243, 95, 95);
+.icon_edit:hover, .icon_remove:hover, .icon_check:hover, .icon_cancel:hover {
+    color: rgb(160, 160, 160);
+}
+
+.edit_residue_input {
+    flex: 1;
+    border: none;
+    font-size: 16px;
+    border-radius: 20px;
+    padding: 4px;
+    margin-top: -3px;
+    border: 1px solid #cccccc;
+    background-color: #3d3d3d28;
+    color: white;
+    padding-left: 12px;
+    margin-left: -12px;
+}
+
+.create_residue_section {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.add_residue_form {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.residue_label {
+    white-space: nowrap;
+}
+
+.add_residue_input {
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #f7fff8;
+    padding: 10px;
+    flex: 1;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(249, 255, 248);
+    color: #000000;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex-wrap: nowrap;
+}
+
+.button:hover {
+    background-color: #89c273; 
+}
+
+.icon_add {
+    margin-left: 10px;
+    font-size: 18px;
 }
 
 @media screen and (max-width: 1200px) {

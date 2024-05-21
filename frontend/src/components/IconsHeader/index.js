@@ -5,7 +5,7 @@ import { faUser, faFileCirclePlus, faFileCircleQuestion, faRecycle } from '@fort
 
 const icons = [
     { icon: faFileCirclePlus, tooltipId: "ecopoint-tooltip", tooltipContent: "Cadastre seu Ecoponto", action: 'EcopointRegistration' },
-    { icon: faRecycle, tooltipId: "recycle-tooltip", tooltipContent: "Resíduos", action: '' },
+    { icon: faRecycle, tooltipId: "recycle-tooltip", tooltipContent: "Resíduos", action: 'ResiduesForm' },
     { icon: faUser, tooltipId: "profile-tooltip", tooltipContent: "Perfil", action: 'UserProfile' }
 ];
 

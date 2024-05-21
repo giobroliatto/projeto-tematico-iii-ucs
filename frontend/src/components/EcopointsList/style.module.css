@@ -27,7 +27,39 @@ input, select {
     font-weight: 700;
     font-size: 24px;
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: -10px;
+}
+
+.title4 {
+    color: #24c036;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.title4_open {
+    color: rgb(159, 255, 159);
+}
+
+.title4_closed {
+    color: rgb(255, 156, 156);
+}
+
+.schedule_section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.clock_icon {
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.2s;
+}
+
+.clock_icon:hover {
+    color: #868686
 }
 
 .wrapper_all {
@@ -166,6 +198,63 @@ input, select {
     font-size: 18px;
     margin: 20px;
     margin-bottom: 12px;
+}
+
+/* MODAL */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: linear-gradient(to bottom right, #4c809e, #396427);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+}
+
+.modal_title {
+    color: #f7fff8;
+    margin-bottom: 30px;
+}
+
+.modal_close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    cursor: pointer; 
+    color: #f7fff8;
+    font-size: 25px; 
+    transition: color 0.2s;
+}
+
+.modal_close:hover {
+    color: #a5a5a5;
+}
+
+.days {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    align-items: center;
+} 
+
+.day {
+    margin: 0px;
+    margin-left: 5px;
 }
   
 @media screen and (max-width: 1200px) {

@@ -101,7 +101,14 @@ const EcopointRegistration = () => {
                 }
             }
         } catch (error) {
-            console.error("Erro ao buscar informações pelo CEP:", error);
+            toast.error(error.response.data.message, {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                theme: "colored",
+            }); 
         }
     };
 

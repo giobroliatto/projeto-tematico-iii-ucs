@@ -55,7 +55,7 @@ const UserProfile = ({ onNavigate }) => {
             <div className={styles.container}>
                 <div>
                     <form onSubmit={handleSubmit}>
-                        <h1>Acesso ao sistema</h1>
+                        <h1 className={styles.title1}>Acesso ao sistema</h1>
                         <div className={styles.inputField}>
                             <input 
                                 type="email"

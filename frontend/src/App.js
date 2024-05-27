@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import s from './App.module.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -7,32 +8,27 @@ import EcopointRegistration from './components/EcopointRegistration';
 import UserProfile from './components/UserProfile';
 import EcopointsPreRegistered from './components/EcopointsPreRegistered';
 import ResiduesForm from './components/ResiduesForm';
+// import EditEcopoint from './components/EditEcopoint';
 
 const App = () => {
-    const [activeComponent, setActiveComponent] = useState('ECOPONTOS');
-
-    const handleOptionClick = (option) => {
-        setActiveComponent(option);
-    };
-
-    const handleNavigation = (component) => {
-        setActiveComponent(component);
-    };
-
     return (
-        <div className={s.App_container}>
-            <Header onOptionClick={handleOptionClick} />
-    
-            <main className={s.content}>
-                {activeComponent === 'ECOPONTOS' && <EcopointsList />}
-                {activeComponent === 'EcopointRegistration' && <EcopointRegistration />}
-                {activeComponent === 'UserProfile' && <UserProfile onNavigate={handleNavigation}/>}
-                {activeComponent === 'EcopointsPreRegistered' && <EcopointsPreRegistered />}
-                {activeComponent === 'ResiduesForm' && <ResiduesForm />}
-            </main>
-    
-            <Footer />
-      </div>
+        <Router>
+            <div className={s.App_container}>
+                <Header />
+                <main className={s.content}>
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/ecopoints" />} />
+                        <Route path="/ecopoints" element={<EcopointsList />} />
+                        <Route path="/register-ecopoint" element={<EcopointRegistration />} />
+                        {/* <Route path="/edit-ecopoint/:id" element={<EditEcopoint />} /> */}
+                        <Route path="/user-profile" element={<UserProfile />} />
+                        <Route path="/ecopoints-pre-registered" element={<EcopointsPreRegistered />} />
+                        <Route path="/residues-form" element={<ResiduesForm />} />
+                    </Routes>
+                </main>
+                <Footer />
+            </div>
+        </Router>
     );
 };
 

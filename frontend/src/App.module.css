@@ -10,6 +10,17 @@ body {
   background-attachment: fixed;
 }
 
+/* Adicione isso ao seu arquivo App.module.css ou ao arquivo CSS global */
+a {
+  color: inherit; /* Herdar a cor do elemento pai */
+  text-decoration: none; /* Remover sublinhado */
+}
+
+a:hover {
+  color: inherit; /* Herdar a cor do elemento pai no hover */
+  text-decoration: none; /* Remover sublinhado no hover */
+}
+
 .App_container {
   display: flex;
   flex-direction: column;

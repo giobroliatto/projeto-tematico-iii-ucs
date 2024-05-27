@@ -1,60 +1,60 @@
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import s from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faFileCirclePlus, faFileCircleQuestion, faRecycle } from '@fortawesome/free-solid-svg-icons';
+import s from './style.module.css';
 
-const icons = [
-    { icon: faFileCirclePlus, tooltipId: "ecopoint-tooltip", tooltipContent: "Cadastre seu Ecoponto", action: 'EcopointRegistration' },
-    { icon: faRecycle, tooltipId: "recycle-tooltip", tooltipContent: "Resíduos", action: 'ResiduesForm' },
-    { icon: faUser, tooltipId: "profile-tooltip", tooltipContent: "Perfil", action: 'UserProfile' }
+const initialIcons = [
+    { icon: faFileCirclePlus, tooltipId: "ecopoint-tooltip", tooltipContent: "Cadastre seu Ecoponto", path: '/register-ecopoint' },
+    { icon: faRecycle, tooltipId: "recycle-tooltip", tooltipContent: "Resíduos", path: '/residues-form' },
+    { icon: faUser, tooltipId: "profile-tooltip", tooltipContent: "Perfil", path: '/user-profile' }
 ];
 
-function IconsHeader({ onOptionClick }) {
-    const handleClick = (option) => {
-        onOptionClick(option);
-    };
+function IconsHeader() {
+    const [icons, setIcons] = useState(initialIcons);
 
-    const decodeJWT = (token) => {
-        if(token !== "undefined" && token !== null){
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const decodedPayload = JSON.parse(atob(base64));
-            return decodedPayload;
-        }
-
-    }
-
-    const checkAdminRole = () => {
-        const token = localStorage.getItem('token');
-        if(token !== "undefined" && token !== null){
-            if(decodeJWT(token).role === 'admin'){
-                if(icons.length <= 3){
-                    const newIcon = { 
-                        icon: faFileCircleQuestion, 
-                        tooltipId: "ecopoint-validation-tooltip", 
-                        tooltipContent: "Validar ecopontos", 
-                        action: 'EcopointsPreRegistered' 
-                    }
-    
-                    icons.splice(1, 0, newIcon);
+    useEffect(() => {
+        const checkAdminRole = () => {
+            const token = localStorage.getItem('token');
+            if (token !== "undefined" && token !== null) {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const decodedPayload = JSON.parse(atob(base64));
+                if (decodedPayload.role === 'admin') {
+                    setIcons(prevIcons => {
+                        if (prevIcons.length <= 3) {
+                            const newIcon = { 
+                                icon: faFileCircleQuestion, 
+                                tooltipId: "ecopoint-validation-tooltip", 
+                                tooltipContent: "Validar ecopontos", 
+                                path: '/ecopoints-pre-registered' 
+                            };
+                            return [...prevIcons.slice(0, 1), newIcon, ...prevIcons.slice(1)];
+                        }
+                        return prevIcons;
+                    });
                 }
             }
-        }
-    }   
+        };
+        checkAdminRole();
+    }, []);
 
     return (
         <>
-            {checkAdminRole()}
             {icons.map((item, index) => (
                 <Tooltip key={index} id={item.tooltipId} />
             ))}
             <ul className={s.icons}>
                 {icons.map((item, index) => (
-                    <li key={index} className={s.icon} onClick={() => handleClick(item.action)}>
-                        <FontAwesomeIcon 
-                            icon={item.icon} 
-                            data-tooltip-id={item.tooltipId} 
-                            data-tooltip-content={item.tooltipContent} />
+                    <li key={index} className={s.icon}>
+                        <Link to={item.path}>
+                            <FontAwesomeIcon 
+                                icon={item.icon} 
+                                data-tooltip-id={item.tooltipId} 
+                                data-tooltip-content={item.tooltipContent} 
+                            />
+                        </Link>
                     </li>
                 ))}
             </ul>

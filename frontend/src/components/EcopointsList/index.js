@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import s from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faTimes, faPen } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 Modal.setAppElement('#root');
@@ -138,6 +138,7 @@ const EcopointsList = () => {
                                 const openNow = isOpenNow(ecopoint.schedules);
                                 return (
                                     <div className={s.card} key={ecopoint._id}>
+                                        <FontAwesomeIcon className={s.pen_icon} icon={faPen} />
                                         <h3 className={s.title3}>{ecopoint.companyName}</h3>
                                         <div className={s.schedule_section}>
                                             <h4 className={`${s.title4} ${openNow ? s.title4_open : s.title4_closed}`}>

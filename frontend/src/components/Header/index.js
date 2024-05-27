@@ -3,14 +3,14 @@ import Logo from '../Logo';
 import OptionsHeader from '../OptionsHeader';
 import s from './style.module.css';
 
-function Header({ onOptionClick }) {
+function Header() {
     return (
         <header className={s.App_header}> 
             <Logo />
-            <OptionsHeader onOptionClick={onOptionClick} />
-            <IconsHeader onOptionClick={onOptionClick} />
+            <OptionsHeader />
+            <IconsHeader />
         </header>
-    )
+    );
 }
 
 export default Header;

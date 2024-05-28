@@ -5,8 +5,10 @@ import axios from "axios";
 import styles from './style.module.css';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
-const UserProfile = ({ onNavigate }) => {
+const UserProfile = () => {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -24,7 +26,7 @@ const UserProfile = ({ onNavigate }) => {
                 const token = response.data.token;
                 localStorage.setItem('token', token);
 
-                onNavigate('EcopointsPreRegistered');
+                navigate('/ecopoints-pre-registered');
                 
             }   
 
@@ -43,7 +45,7 @@ const UserProfile = ({ onNavigate }) => {
     }
 
     const handleBack = () => {
-        onNavigate('ECOPONTOS');
+        navigate('/ecopoints');
     }
 
     return (

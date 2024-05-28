@@ -6,7 +6,7 @@ import { Slide, ToastContainer, toast } from 'react-toastify';
 
 Modal.setAppElement('#root');
 
-const EcopointsPreRegistered = ({ onNavigate }) => {
+const EcopointsPreRegistered = () => {
     const [ecopoints, setEcopoints] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEcopoint, setSelectedEcopoint] = useState(null);

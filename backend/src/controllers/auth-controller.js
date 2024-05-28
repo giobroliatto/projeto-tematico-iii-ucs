@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import { user } from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { configDotenv } from "dotenv";
@@ -15,13 +15,13 @@ export const verifyAuth = async (req, res) => {
         return res.status(422).json({ message: 'A senha é obrigatória'});
     }
 
-    const user = await User.findOne({ email: email });
+    const newUser = await user.findOne({ email: email });
 
-    if(!user) {
+    if(!newUser) {
         return res.status(404).json({ message: 'Usuário não encontrado'});
     }
 
-    const checkPassword = await bcrypt.compare(password, user.password);
+    const checkPassword = await bcrypt.compare(password, newUser.password);
 
     if(!checkPassword){
         return res.status(422).json({ message: 'Senha inválida'});
@@ -33,8 +33,8 @@ export const verifyAuth = async (req, res) => {
         const expiresIn = '1h'; /* tempo de expiração de 1 hora */
 
         const payload = {
-            id: user._id,
-            role: user.role
+            id: newUser._id,
+            role: newUser.role
         }
 
         const token = jwt.sign(

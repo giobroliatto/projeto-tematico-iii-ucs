@@ -24,16 +24,13 @@ const UserProfile = ({ onNavigate }) => {
                 const token = response.data.token;
                 localStorage.setItem('token', token);
 
-
-                toast.success('Autenticação realizada com sucesso');
-
                 onNavigate('EcopointsPreRegistered');
                 
             }   
 
         } catch(err){
             const errorMessage = err.response.data.message;
-
+            
             toast.error(errorMessage, {
                 position: "top-right",
                 autoClose: 3000,

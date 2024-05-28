@@ -6,8 +6,12 @@ import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import s from './style.module.css';
 import SchedulePicker from '../SchedulePicker';
+import { useParams } from 'react-router-dom';
 
 const EcopointRegistration = () => {
+    const { id } = useParams(); 
+    const isEditMode = !!id;
+
     const [formData, setFormData] = useState({
         email: '',
         companyName: '',
@@ -67,6 +71,40 @@ const EcopointRegistration = () => {
 
         fetchResidues();
     }, []);
+
+    useEffect(() => {
+        if (isEditMode) {
+            const fetchEcopoint = async () => {
+                try {
+                    const response = await fetch(`http://localhost:3001/ecopoints/${id}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        setFormData({
+                            email: data.email,
+                            companyName: data.companyName,
+                            responsibleName: data.responsibleName,
+                            responsibleNumber: data.responsibleNumber,
+                            companyCep: data.companyCep,
+                            companyStreet: data.companyStreet,
+                            companyDistrict: data.companyDistrict,
+                            companyNumber: data.companyNumber,
+                            companyComplement: data.companyComplement,
+                            residues: data.residues.map(residue => residue._id),
+                            openToPublic: data.openToPublic,
+                            schedules: data.schedules,
+                            validated: data.validated,
+                        });
+                    } else {
+                        console.error("Erro ao carregar os dados do Ecoponto");
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar dados do Ecoponto:", error);
+                }
+            };
+
+            fetchEcopoint();
+        }
+    }, [id, isEditMode]);
 
     const fetchAddressByCep = async (cep) => {
         try {
@@ -136,7 +174,7 @@ const EcopointRegistration = () => {
     const handleRadioChange = (e) => {
         setFormData({
             ...formData,
-            openToPublic: e.target.value,
+            openToPublic: e.target.value === 'true',
         });
     };
 
@@ -149,8 +187,8 @@ const EcopointRegistration = () => {
             responsibleNumber: formData.responsibleNumber.replace(/\D/g, ''),
         };
 
-        const response = await fetch('http://localhost:3001/ecopoints/', {
-            method: 'POST',
+        const response = await fetch(`http://localhost:3001/ecopoints/${isEditMode ? id : ''}`, {
+            method: isEditMode ? 'PUT' : 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -158,7 +196,7 @@ const EcopointRegistration = () => {
         });
 
         if (response.ok) {
-            toast.success('Dados enviados para análise. Você será comunicado quando seu ecoponto for validado.', {
+            toast.success(`Ecoponto ${isEditMode ? 'atualizado' : 'cadastrado'} com sucesso!`, {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -167,7 +205,7 @@ const EcopointRegistration = () => {
                 theme: "colored",
             });  
         } else {
-            console.error("Erro ao cadastrar o Ecopoint.");
+            console.error(`Erro ao ${isEditMode ? 'atualizar' : 'cadastrar'} o Ecoponto.`);
         }
     };
 
@@ -175,25 +213,28 @@ const EcopointRegistration = () => {
         <div className={s.content}>
             <ToastContainer />
 
-            <h1 className={s.title1}>Cadastro de Ecoponto Fixo</h1>
+            <h1 className={s.title1}>{isEditMode ? 'Editar Ecoponto' : 'Cadastro de Ecoponto Fixo'}</h1>
 
             <div className={s.wrapper_all}>
                 <div className={s.wrapper}>
-                    <div className={s.card}>
-                        <h2 className={s.title2}>Manifeste seu interesse em tornar-se um Ecoponto de resíduos especiais do Caxias Lixo Zero e ajude a nossa cidade a ser mais limpa, consciente e sustentável!</h2>
-                    </div>
-
-                    <div className={s.card}>
-                        <h2 className={s.title2}>Antes de se cadastrar, leia com atenção os TERMOS:</h2>
-                        <p className={s.paragraph}>- O Ecoponto é responsável pela organização da coleta, ou seja, é o parceiro que deverá disponibilizar uma ou mais caixas para que as pessoas possam depositar os resíduos, e também é responsável pela verificação dos materiais descartados (se estão de acordo com a proposta); </p>
-                        <p className={s.paragraph}>- A cada 2 meses, os resíduos devem ser entregues para o Coletivo Lixo Zero Caxias do Sul no nosso Drive Thru. Sempre será avisado com antecedência quando o Drive Thru irá ocorrer, assim como o horário e local; </p>
-                        <p className={s.paragraph}>- Após o recebimento, o Coletivo Lixo Zero Caxias do Sul é o responsável por destinar corretamente os resíduos coletados pelo(s) parceiro(s). </p>
-                        <p className={s.paragraph}>Desde já, nosso muito obrigado pelo seu interesse e consciência ambiental e coletiva!</p>
-                    </div>
+                        {!isEditMode && (
+                        <>
+                            <div className={s.card}>
+                                <h2 className={s.title2}>Manifeste seu interesse em tornar-se um Ecoponto de resíduos especiais do Caxias Lixo Zero e ajude a nossa cidade a ser mais limpa, consciente e sustentável!</h2>
+                            </div>
+                            <div className={s.card}>
+                                <h2 className={s.title2}>Antes de se cadastrar, leia com atenção os TERMOS:</h2>
+                                <p className={s.paragraph}>- O Ecoponto é responsável pela organização da coleta, ou seja, é o parceiro que deverá disponibilizar uma ou mais caixas para que as pessoas possam depositar os resíduos, e também é responsável pela verificação dos materiais descartados (se estão de acordo com a proposta); </p>
+                                <p className={s.paragraph}>- A cada 2 meses, os resíduos devem ser entregues para o Coletivo Lixo Zero Caxias do Sul no nosso Drive Thru. Sempre será avisado com antecedência quando o Drive Thru irá ocorrer, assim como o horário e local; </p>
+                                <p className={s.paragraph}>- Após o recebimento, o Coletivo Lixo Zero Caxias do Sul é o responsável por destinar corretamente os resíduos coletados pelo(s) parceiro(s). </p>
+                                <p className={s.paragraph}>Desde já, nosso muito obrigado pelo seu interesse e consciência ambiental e coletiva!</p>
+                            </div>
+                        </>
+                    )}
 
                     <form onSubmit={handleSubmit}>
                         <div className={s.card}>
-                            <h3 className={s.title3}>Formulário de Cadastro</h3>
+                            <h3 className={s.title3}>{isEditMode ? `${formData.companyName}` : 'Formulário de Cadastro'}</h3>
 
                             <div className={`row`}> 
                                 <div className={`col-md-12 ${s.form_group}`}>
@@ -381,7 +422,7 @@ const EcopointRegistration = () => {
                             />
                         </div>
                         <div className={s.button_wrapper}>
-                            <button className={s.button} type="submit">Enviar</button>
+                            <button className={s.button} onClick={handleSubmit}>{isEditMode ? 'Atualizar' : 'Cadastrar'}</button>
                         </div>
                     </form>
                 </div>

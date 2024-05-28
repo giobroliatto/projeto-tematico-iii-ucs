@@ -5,6 +5,7 @@ import s from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faTimes, faPen } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
@@ -14,6 +15,11 @@ const EcopointsList = () => {
     const [residueTypes, setResidueTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [currentSchedules, setCurrentSchedules] = useState([]);
+    const navigate = useNavigate();
+
+    const handleEditClick = (id) => {
+        navigate(`/edit-ecopoint/${id}`);
+    };
 
     useEffect(() => {
         axios.get('http://localhost:3001/ecopoints')
@@ -138,7 +144,11 @@ const EcopointsList = () => {
                                 const openNow = isOpenNow(ecopoint.schedules);
                                 return (
                                     <div className={s.card} key={ecopoint._id}>
-                                        <FontAwesomeIcon className={s.pen_icon} icon={faPen} />
+                                        <FontAwesomeIcon 
+                                            className={s.pen_icon} 
+                                            icon={faPen} 
+                                            onClick={() => handleEditClick(ecopoint._id)} 
+                                        />
                                         <h3 className={s.title3}>{ecopoint.companyName}</h3>
                                         <div className={s.schedule_section}>
                                             <h4 className={`${s.title4} ${openNow ? s.title4_open : s.title4_closed}`}>

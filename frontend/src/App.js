@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import s from './App.module.css';
 import Header from './components/Header';
@@ -8,7 +7,6 @@ import EcopointRegistration from './components/EcopointRegistration';
 import UserProfile from './components/UserProfile';
 import EcopointsPreRegistered from './components/EcopointsPreRegistered';
 import ResiduesForm from './components/ResiduesForm';
-// import EditEcopoint from './components/EditEcopoint';
 
 const App = () => {
     return (
@@ -20,7 +18,7 @@ const App = () => {
                         <Route path="/" element={<Navigate to="/ecopoints" />} />
                         <Route path="/ecopoints" element={<EcopointsList />} />
                         <Route path="/register-ecopoint" element={<EcopointRegistration />} />
-                        {/* <Route path="/edit-ecopoint/:id" element={<EditEcopoint />} /> */}
+                        <Route path="/edit-ecopoint/:id" element={<EcopointRegistration />} />
                         <Route path="/user-profile" element={<UserProfile />} />
                         <Route path="/ecopoints-pre-registered" element={<EcopointsPreRegistered />} />
                         <Route path="/residues-form" element={<ResiduesForm />} />

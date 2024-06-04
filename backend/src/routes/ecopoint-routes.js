@@ -4,7 +4,6 @@ import EcopointController from "../controllers/ecopoint-controller.js";
 const routes = express.Router();
 
 routes.get("/ecopoints", EcopointController.getEcopoints);
-routes.get("/ecopoints/filter", EcopointController.getEcopointsFilter);
 routes.get("/ecopoints/:id", EcopointController.getEcopointById);
 routes.post("/ecopoints", EcopointController.createEcopoint);
 routes.put("/ecopoints/:id", EcopointController.updateEcopoint);

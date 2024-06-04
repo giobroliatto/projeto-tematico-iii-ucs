@@ -5,10 +5,17 @@ class EcopointController {
 
     static async getEcopoints(req, res) {
         try {
-            const ecopointsList = await ecopoint.find({});
+            const { validated } = req.query;
+            const filter = {};
+
+            if (validated !== undefined) {
+                filter.validated = validated === 'true';
+            }
+
+            const ecopointsList = await ecopoint.find(filter);
             res.status(200).send(ecopointsList);
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao buscar ecopontos` })
+            res.status(500).json({ message: `${err.message} - falha ao buscar ecopontos` });
         }
     }
 
@@ -60,15 +67,6 @@ class EcopointController {
             res.status(200).send({ message: "ecoponto removido" });
         } catch (err) {
             res.status(500).json({ message: `${err.message} - falha ao remover ecoponto. id: ${id}` })
-        }
-    }
-    /* CRIAR UM METODO UNICO */
-    static async getEcopointsFilter(req, res){
-        try {
-            const ecopoints = await ecopoint.find({ validated: false });
-            res.status(200).send(ecopoints);
-        } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao buscar os ecopontos.` });
         }
     }
 };

@@ -22,7 +22,7 @@ const EcopointsList = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:3001/ecopoints')
+        axios.get('http://localhost:3001/ecopoints?validated=true')
             .then((response) => {
                 const ecopoints = response.data; 
                 setEcopoints(ecopoints);

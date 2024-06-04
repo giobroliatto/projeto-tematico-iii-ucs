@@ -87,6 +87,7 @@ const EcopointRegistration = () => {
                             companyCep: data.companyCep,
                             companyStreet: data.companyStreet,
                             companyDistrict: data.companyDistrict,
+                            companyCity: data.companyCity,
                             companyNumber: data.companyNumber,
                             companyComplement: data.companyComplement,
                             residues: data.residues.map(residue => residue._id),
@@ -196,7 +197,7 @@ const EcopointRegistration = () => {
         });
 
         if (response.ok) {
-            toast.success(`Ecoponto ${isEditMode ? 'atualizado' : 'cadastrado'} com sucesso!`, {
+            toast.success(`${isEditMode ? 'Ecoponto atualizado com sucesso!' : 'Dados enviados para análise. Você será comunicado quando seu ecoponto for validado'}`, {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,

@@ -13,7 +13,7 @@ const EcopointsPreRegistered = () => {
     const [action, setAction] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:3001/ecopoints/filter')
+        axios.get('http://localhost:3001/ecopoints?validated=false')
             .then((response) => {
                 setEcopoints(response.data);
             })

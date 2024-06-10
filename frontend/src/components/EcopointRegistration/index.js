@@ -48,6 +48,7 @@ const EcopointRegistration = () => {
     };
 
     const [residuesList, setResiduesList] = useState([]);
+    const [selectedResiduesOptions, setSelectedResiduesOptions] = useState([]);
 
     const residuesOptions = residuesList.map(residue => ({
         value: residue._id,
@@ -79,6 +80,11 @@ const EcopointRegistration = () => {
                     const response = await fetch(`http://localhost:3001/ecopoints/${id}`);
                     if (response.ok) {
                         const data = await response.json();
+                        const selectedResidues = data.residues.map(residue => ({
+                            value: residue._id,
+                            label: residue.name,
+                        }));
+
                         setFormData({
                             email: data.email,
                             companyName: data.companyName,
@@ -90,11 +96,13 @@ const EcopointRegistration = () => {
                             companyCity: data.companyCity,
                             companyNumber: data.companyNumber,
                             companyComplement: data.companyComplement,
-                            residues: data.residues.map(residue => residue._id),
+                            residues: selectedResidues.map(residue => residue.value),
                             openToPublic: data.openToPublic,
                             schedules: data.schedules,
                             validated: data.validated,
                         });
+
+                        setSelectedResiduesOptions(selectedResidues);
                     } else {
                         console.error("Erro ao carregar os dados do Ecoponto");
                     }
@@ -170,6 +178,7 @@ const EcopointRegistration = () => {
             ...formData,
             residues: selectedResidues
         });
+        setSelectedResiduesOptions(selectedOptions);
     };
 
     const handleRadioChange = (e) => {
@@ -390,6 +399,7 @@ const EcopointRegistration = () => {
                                     isMulti
                                     onChange={handleResiduesChange}
                                     styles={customStyles}
+                                    value={selectedResiduesOptions}
                                     placeholder='Selecione um ou mais resíduos...'
                                 />
                             </div>
@@ -403,7 +413,7 @@ const EcopointRegistration = () => {
                                         name="openToPublic"
                                         value={true}
                                         onChange={handleRadioChange}
-                                        checked={true}
+                                        checked={formData.openToPublic === true}
                                     /> Sim
                                 </label>
                                 <label>
@@ -413,6 +423,7 @@ const EcopointRegistration = () => {
                                         name="openToPublic"
                                         value={false}
                                         onChange={handleRadioChange}
+                                        checked={formData.openToPublic === false}
                                     /> Não
                                 </label>
                             </div>

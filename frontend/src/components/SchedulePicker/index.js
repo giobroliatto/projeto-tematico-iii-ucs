@@ -1,10 +1,10 @@
-import s from './style.module.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import s from './style.module.css';
 
 const SchedulePicker = ({ schedules, setSchedules }) => {
-    const [days, setDays] = useState([
+    const initialDays = [
         { name: 'Domingo', checked: false, showSecondTime: false },
         { name: 'Segunda-feira', checked: false, showSecondTime: false },
         { name: 'Terça-feira', checked: false, showSecondTime: false },
@@ -12,12 +12,41 @@ const SchedulePicker = ({ schedules, setSchedules }) => {
         { name: 'Quinta-feira', checked: false, showSecondTime: false },
         { name: 'Sexta-feira', checked: false, showSecondTime: false },
         { name: 'Sábado', checked: false, showSecondTime: false }
-    ]);
+    ];
 
+    const [days, setDays] = useState(initialDays);
     const [startTimes, setStartTimes] = useState(Array(7).fill(''));
     const [endTimes, setEndTimes] = useState(Array(7).fill(''));
     const [startTimes2, setStartTimes2] = useState(Array(7).fill(''));
     const [endTimes2, setEndTimes2] = useState(Array(7).fill(''));
+
+    useEffect(() => {
+        if (schedules && schedules.length > 0) {
+            const updatedDays = [...initialDays];
+            const newStartTimes = Array(7).fill('');
+            const newEndTimes = Array(7).fill('');
+            const newStartTimes2 = Array(7).fill('');
+            const newEndTimes2 = Array(7).fill('');
+
+            schedules.forEach(schedule => {
+                const { weekDay, startTime1, endTime1, startTime2, endTime2 } = schedule;
+                updatedDays[weekDay].checked = true;
+                newStartTimes[weekDay] = startTime1;
+                newEndTimes[weekDay] = endTime1;
+                if (startTime2 && endTime2) {
+                    updatedDays[weekDay].showSecondTime = true;
+                    newStartTimes2[weekDay] = startTime2;
+                    newEndTimes2[weekDay] = endTime2;
+                }
+            });
+
+            setDays(updatedDays);
+            setStartTimes(newStartTimes);
+            setEndTimes(newEndTimes);
+            setStartTimes2(newStartTimes2);
+            setEndTimes2(newEndTimes2);
+        }
+    }, [schedules]);
 
     useEffect(() => {
         const updatedSchedules = days
@@ -30,9 +59,7 @@ const SchedulePicker = ({ schedules, setSchedules }) => {
                 endTime2: day.showSecondTime ? endTimes2[days.indexOf(day)] : '',
             }));
         setSchedules(updatedSchedules);
-
     }, [days, startTimes, endTimes, startTimes2, endTimes2]);
-    
 
     const handleDayChange = (index) => {
         const updatedDays = [...days];

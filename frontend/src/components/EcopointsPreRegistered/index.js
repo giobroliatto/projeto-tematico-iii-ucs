@@ -3,23 +3,31 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import style from './style.module.css';
 import { Slide, ToastContainer, toast } from 'react-toastify';
+import Loader from '../Loader';
 
 Modal.setAppElement('#root');
 
 const EcopointsPreRegistered = () => {
     const [ecopoints, setEcopoints] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEcopoint, setSelectedEcopoint] = useState(null);
     const [action, setAction] = useState('');
 
+    const fetchEcopoints = async () => {
+        setIsLoading(true);
+        try {
+            const response = await axios.get('http://localhost:3001/ecopoints?validated=false');
+            setEcopoints(response.data);
+        } catch (err) {
+            console.error("Erro ao buscar os ecopontos", err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        axios.get('http://localhost:3001/ecopoints?validated=false')
-            .then((response) => {
-                setEcopoints(response.data);
-            })
-            .catch(err => {
-                console.log("Erro ao buscar os ecopontos", err);
-            });
+        fetchEcopoints();
     }, []);
 
     const handleOpenModal = (ecopoint, action) => {
@@ -34,13 +42,16 @@ const EcopointsPreRegistered = () => {
         setAction('');
     };
 
-    const handleConfirm = () => {
-        if (action === 'Aceitar') {
-            handleAccept(selectedEcopoint);
-        } else if (action === 'Rejeitar') {
-            handleReject(selectedEcopoint._id);
-        }
+    const handleConfirm = async () => {
         handleCloseModal();
+        setIsLoading(true);
+        if (action === 'Aceitar') {
+            await handleAccept(selectedEcopoint);
+        } else if (action === 'Rejeitar') {
+            await handleReject(selectedEcopoint._id);
+        }
+        setIsLoading(false);
+        fetchEcopoints();
     };
 
     const handleAccept = async (ecopoint) => {
@@ -51,38 +62,35 @@ const EcopointsPreRegistered = () => {
                 }
             };
 
-            const response = await axios.post(`http://localhost:3001/user`, {
+            const response = await axios.post('http://localhost:3001/user', {
                 email: ecopoint.email
             }, config);
 
-            if(response.status === 200 || response.status === 201){
-                toast.success('Login gerado com sucesso', {
-                    position: "bottom-center",
+            if (response.status === 200 || response.status === 201) {
+                await updateEcopoint(ecopoint);
+                
+                await sendEmailConfirmation(response.data.user);
+
+                toast.success('Ecoponto aceito.\nEmail enviado com sucesso!', {
+                    position: 'bottom-center',
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
-                    theme: "colored",
+                    theme: 'colored',
                 });
-
-                await updateEcopoint(ecopoint);
-
             }
-
-
         } catch (err) {
-            const errorMessage = err.response.data.message;
-
+            const errorMessage = err.response?.data?.message || 'Erro ao processar a solicitação';
             toast.error(errorMessage, {
-                position: "top-right",
+                position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
                 draggable: true,
                 theme: 'dark',
-                transition: Slide
-            })
+                transition: Slide,
+            });
         }
-
     };
 
     const updateEcopoint = async (ecopoint) => {
@@ -96,8 +104,20 @@ const EcopointsPreRegistered = () => {
         }
     };
 
-    const handleReject = async (ecopoint) => {
-        alert("EM ANDAMENTO...");
+    const sendEmailConfirmation = async (dataEmail) => {
+        try {
+            await axios.post('http://localhost:3001/sendEmail', {
+                email: dataEmail.email,
+                password: dataEmail.password
+            });
+        } catch (err) {
+            console.error('Erro ao enviar o email:', err);
+            throw err;
+        }
+    };
+
+    const handleReject = async (ecopointId) => {
+        alert('EM ANDAMENTO...');
         /* CONSTRUÇÃO */
     };
 
@@ -105,6 +125,7 @@ const EcopointsPreRegistered = () => {
         <>
             <ToastContainer />
             <div className={style.container}>
+                {isLoading && <Loader />}
                 <div className={style.tableContainer}>
                     <h1>Ecopontos não cadastrados</h1>
                     <ul>
@@ -119,11 +140,11 @@ const EcopointsPreRegistered = () => {
                         ))}
                     </ul>
                 </div>
-                <Modal 
-                    isOpen={isModalOpen} 
+                <Modal
+                    isOpen={isModalOpen}
                     onRequestClose={handleCloseModal}
                     contentLabel="Confirmação"
-                    className={style.modal} 
+                    className={style.modal}
                     overlayClassName={style.modalOverlay}
                 >
                     <h2>{action}?</h2>

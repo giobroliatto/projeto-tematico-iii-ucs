@@ -21,7 +21,7 @@ class EmailController {
         try {
             const info = await transporter.sendMail({
                 from: process.env.EMAIL,
-                to: "testeucsprojetotematico3@gmail.com",
+                to: dataEmail.email,
                 subject: "CADASTRO DO SEU ECOPONTO FOI ACEITO!",
                 html: `
                     <h1>Cadastro de Ecoponto</h1>

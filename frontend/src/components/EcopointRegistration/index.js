@@ -3,14 +3,18 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import InputMask from 'react-input-mask';
 import Select from 'react-select';
+import Modal from 'react-modal';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import s from './style.module.css';
 import SchedulePicker from '../SchedulePicker';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const EcopointRegistration = () => {
     const { id } = useParams(); 
     const isEditMode = !!id;
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -49,12 +53,39 @@ const EcopointRegistration = () => {
 
     const [residuesList, setResiduesList] = useState([]);
     const [selectedResiduesOptions, setSelectedResiduesOptions] = useState([]);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [ecopointName, setEcopointName] = useState('');
 
     const residuesOptions = residuesList.map(residue => ({
         value: residue._id,
         label: residue.name
     }));
 
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+    
+    const closeModal = () => {
+        setModalIsOpen(false);
+        setEcopointName('');
+    };
+    
+    const handleConfirmDelete = () => {
+        if (ecopointName.trim() === formData.companyName) {
+            handleDelete();
+            closeModal();
+        } else {
+            toast.error('O nome do Ecoponto não corresponde.', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                theme: "colored",
+            });
+        }
+    };
+    
     useEffect(() => {
         const fetchResidues = async () => {
             try {
@@ -216,6 +247,33 @@ const EcopointRegistration = () => {
             });  
         } else {
             console.error(`Erro ao ${isEditMode ? 'atualizar' : 'cadastrar'} o Ecoponto.`);
+        }
+    };
+
+    const handleDelete = async () => {
+        if (isEditMode) {
+            try {
+                const response = await fetch(`http://localhost:3001/ecopoints/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    toast.success('Ecoponto removido com sucesso!', {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        theme: "colored",
+                    });
+
+                    navigate('/');
+                } else {
+                    console.error("Erro ao remover o Ecoponto");
+                }
+            } catch (error) {
+                console.error("Erro ao remover o Ecoponto:", error);
+            }
         }
     };
 
@@ -435,10 +493,40 @@ const EcopointRegistration = () => {
                         </div>
                         <div className={s.button_wrapper}>
                             <button className={s.button} onClick={handleSubmit}>{isEditMode ? 'Atualizar' : 'Cadastrar'}</button>
+                            {isEditMode && (
+                                <button 
+                                    type="button" 
+                                    className={`${s.button} ${s.button_remove}`} 
+                                    onClick={openModal}
+                                >
+                                    Remover Ecoponto
+                                </button>
+                            )}
                         </div>
                     </form>
                 </div>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                className={s.modal}
+                overlayClassName={s.modalOverlay}
+            >
+                <h2 className={s.modal_title}>Atenção! Esta ação não pode ser desfeita</h2>
+                <p>Ao continuar, você estará removendo o Ecoponto permanentemente.</p>
+                <p>Para confirmar, digite "{formData.companyName}" no campo abaixo:</p>
+                <input
+                    type="text"
+                    value={ecopointName}
+                    onChange={(e) => setEcopointName(e.target.value)}
+                    className={s.remove_ecopoint_input}
+                />
+
+                <div className={s.button_wrapper}>
+                    <button className={s.button_remove_modal} onClick={handleConfirmDelete}>Remover Ecoponto</button>
+                    <button className={s.button_cancel_modal} onClick={closeModal}>Cancelar</button>
+                </div>
+            </Modal>
         </div>
     );
 };

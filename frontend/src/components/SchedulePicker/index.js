@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import s from './style.module.css';
@@ -19,6 +19,8 @@ const SchedulePicker = ({ schedules, setSchedules }) => {
     const [endTimes, setEndTimes] = useState(Array(7).fill(''));
     const [startTimes2, setStartTimes2] = useState(Array(7).fill(''));
     const [endTimes2, setEndTimes2] = useState(Array(7).fill(''));
+
+    const prevSchedulesRef = useRef();
 
     useEffect(() => {
         if (schedules && schedules.length > 0) {
@@ -58,8 +60,12 @@ const SchedulePicker = ({ schedules, setSchedules }) => {
                 startTime2: day.showSecondTime ? startTimes2[days.indexOf(day)] : '',
                 endTime2: day.showSecondTime ? endTimes2[days.indexOf(day)] : '',
             }));
-        setSchedules(updatedSchedules);
-    }, [days, startTimes, endTimes, startTimes2, endTimes2]);
+        
+        if (JSON.stringify(updatedSchedules) !== JSON.stringify(prevSchedulesRef.current)) {
+            prevSchedulesRef.current = updatedSchedules;
+            setSchedules(updatedSchedules);
+        }
+    }, [days, startTimes, endTimes, startTimes2, endTimes2, setSchedules]);
 
     const handleDayChange = (index) => {
         const updatedDays = [...days];

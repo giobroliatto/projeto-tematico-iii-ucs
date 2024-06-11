@@ -97,8 +97,8 @@ label {
 
 .button_wrapper {
     display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .button {
@@ -112,10 +112,20 @@ label {
     border-radius: 12px;
     cursor: pointer; 
     transition: background-color 0.3s;
+    margin-bottom: 10px;
 }
 
 .button:hover {
     background-color: #89c273; 
+}
+
+.button_remove {
+    background-color: rgb(212, 58, 58);
+    color: #ffffff;
+}
+
+.button_remove:hover {
+    background-color: rgb(133, 43, 43);
 }
 
 .required {
@@ -148,6 +158,87 @@ label {
 
 .Select-multi-value__remove:hover svg {
     color: darkred;
+}
+
+/* MODAL */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: linear-gradient(to bottom right, #4c809e, #396427);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+}
+
+.modal_title {
+    color: #f7fff8;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.modal_close:hover {
+    color: #a5a5a5;
+}
+
+.remove_ecopoint_input {
+    border-radius: 10px;
+    border: none;
+    background-color: #f7fff8;
+    padding: 6px;
+    padding-left: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.button_remove_modal {
+    background-color: rgb(212, 58, 58);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    width: 50%;
+    padding: 10px; 
+    border: none;
+    border-radius: 12px;
+    cursor: pointer; 
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.button_remove_modal:hover {
+    background-color: rgb(133, 43, 43);
+}
+
+.button_cancel_modal {
+    background-color: rgb(249, 255, 248);
+    color: #000000;
+    font-weight: 700;
+    font-size: 15px;
+    width: 50%;
+    padding: 10px; 
+    border: none;
+    border-radius: 12px;
+    cursor: pointer; 
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.button_cancel_modal:hover {
+    background-color: #cfcfcf;
 }
 
 @media screen and (max-width: 1200px) {

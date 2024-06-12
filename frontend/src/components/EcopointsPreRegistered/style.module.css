@@ -16,9 +16,9 @@
 
 .tableContainer h1 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #ffffff;
+    color: #f7fff8;
+    font-weight: 700;
+    font-size: 40px;
 }
 
 .tableContainer ul {
@@ -46,13 +46,12 @@
     cursor: pointer;
 }
 
-.tableContainer button:first-child,
-.btnConfirmModal {
+.btnConfirmModal,
+.btnOpenModalConfirm {
     background-color: #4CAF50;
     color: white;
 }
 
-.tableContainer button:last-child,
 .btnCloseModal {
     background-color: #f44336;
     color: white;
@@ -81,21 +80,23 @@
     transform: translate(-50%, -50%);
     width: 400px;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to bottom right, #4c809e, #396427);
+    max-width: 500px;
+    border-style: none;
 }
 
 .modal h2 {
     margin-top: 0;
     font-size: 20px;
-    color: #333;
+    color: #ffffff;
 }
 
 .modal p {
     margin: 20px 0;
     font-size: 16px;
-    color: #333;
+    color: #ffffff;
 }
 
 .modal button {
@@ -104,6 +105,31 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+
+.iconCheck,
+.iconEye {
+    font-size: 24px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.5s;
+}
+
+.iconCheck {
+    color: #50c23a;
+}
+
+.iconEye {
+    color: #226d8dce;
+}
+
+.iconCheck:hover{
+    color: #51c23a86;
+}
+
+.iconEye:hover {
+    color: #226d8d81;
 }
 
 .loader {
@@ -120,3 +146,33 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.modalDetails {
+    margin-bottom: 20px;
+}
+  
+.modalItem {
+    margin-bottom: 8px;
+}
+  
+.modalSubtitle {
+    margin-top: 12px;
+    font-weight: bold;
+}
+  
+.modalList {
+    list-style-type: none;
+    padding-left: 0;
+}
+  
+.modalListItem {
+    margin-bottom: 4px;
+}
+
+.modalLoading {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    margin-top: 20px;
+}
+  

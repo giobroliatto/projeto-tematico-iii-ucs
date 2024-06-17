@@ -14,9 +14,29 @@
     transform: translate(-50%, -50%);
 }
 
+.containerAuth {
+    width: 350px;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 10px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .title1 {
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+.titleAuth {
+    text-align: center;
 }
 
 .container .inputField {
@@ -74,3 +94,36 @@
 .btn:hover {
     background-color: #89c273; 
 }
+
+.hidden {
+    display: none;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 18px;
+}
+

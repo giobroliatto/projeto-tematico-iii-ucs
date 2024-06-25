@@ -5,7 +5,7 @@ import style from './style.module.css';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import Loader from '../Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEye, faPen } from '@fortawesome/free-solid-svg-icons';
 
 Modal.setAppElement('#root');
 
@@ -135,28 +135,38 @@ const EcopointsPreRegistered = () => {
             <div className={style.container}>
                 {isLoading && <Loader />}
                 <div className={style.tableContainer}>
-                    <h1>Ecopontos não cadastrados</h1>
-                    <ul>
-                        {ecopoints.map((ecopoint) => (
-                            <li key={ecopoint._id} className={style.listItem}>
-                                {ecopoint.companyName}
-                                <div className={style.iconContainer}>
-                                    <FontAwesomeIcon
-                                        icon={faCheck}
-                                        className={style.iconCheck}
-                                        onClick={() => handleOpenModal(ecopoint, 'Aceitar')}
-                                        title='Aceitar'
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={faEye}
-                                        className={style.iconEye}
-                                        onClick={() => handleOpenModal(ecopoint, 'Visualizar')}
-                                        title='Visualizar'
-                                    />
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                    <h1 className={style.title1}>Validação de Ecopontos</h1>
+                    <div className={style.wrapper_all}>
+                        <div className={style.wrapper}>
+                            <h2 className={style.title2}>Avalie, ajuste e aprove os Ecopontos cadastrados pelas empresas</h2>
+                            <section className={style.ecopoints_list}>
+                                {ecopoints.map((ecopoint, index) => (
+                                    <div key={index} className={style.ecopoint}>
+                                        <label>{ecopoint.companyName}</label>
+                                        <div className={style.icon_wrapper}>
+                                            <FontAwesomeIcon
+                                                icon={faEye}
+                                                className={style.icon}
+                                                onClick={() => handleOpenModal(ecopoint, 'Visualizar')}
+                                                title='Visualizar'
+                                            />
+                                            <FontAwesomeIcon
+                                                icon={faPen}
+                                                className={style.icon_edit}
+                                                title='Editar'
+                                            />
+                                            <FontAwesomeIcon
+                                                icon={faCheck}
+                                                className={style.icon}
+                                                onClick={() => handleOpenModal(ecopoint, 'Aceitar')}
+                                                title='Aceitar'
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </section>
+                        </div>
+                    </div>
                 </div>
                 <Modal
                     isOpen={isModalOpen}
@@ -167,14 +177,16 @@ const EcopointsPreRegistered = () => {
                 >
                     {action === 'Aceitar' ? (
                         <>
-                            <h2 className={style.modalTitle}>{action}?</h2>
-                            <p className={style.modalText}>Tem certeza que deseja {action} o ecoponto <strong>{selectedEcopoint?.companyName}</strong>?</p>
-                            <button className={style.btnConfirmModal} onClick={handleConfirm}>Confirmar</button>
-                            <button className={style.btnCloseModal} onClick={handleCloseModal}>Cancelar</button>
+                            <h2 className={style.modal_title}>Atenção!</h2>
+                            <p className={style.modalText}>Deseja validar o cadastro do ecoponto "<strong>{selectedEcopoint?.companyName}</strong>"? Ao confirmar, o local ficará disponível na lista de ecopontos como um ecoponto oficial.</p>
+                            <div className={style.btnContainer}>
+                                <button className={style.btnConfirmModal} onClick={handleConfirm}>Confirmar</button>
+                                <button className={style.btnCloseModal} onClick={handleCloseModal}>Cancelar</button>
+                            </div>
                         </>
                     ) : (
                         <>
-                            <h2 className={style.modalTitle}>Detalhes</h2>
+                            <h2 className={style.modal_title}>Detalhes do Ecoponto</h2>
                             {ecopointDetails ? (
                                 <div className={style.modalDetails}>
                                     <p className={style.modalItem}><strong>Nome da Empresa:</strong> {ecopointDetails.companyName}</p>
@@ -201,7 +213,9 @@ const EcopointsPreRegistered = () => {
                             ) : (
                                 <p className={style.modalLoading}>Carregando...</p>
                             )}
-                            <button className={style.btnCloseModal} onClick={handleCloseModal}>Fechar</button>
+                            <div className={style.btnContainer}>
+                                <button className={style.btnCloseModal} onClick={handleCloseModal}>Fechar</button>
+                            </div>
                         </>
                     )}
                 </Modal>

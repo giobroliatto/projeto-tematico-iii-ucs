@@ -5,8 +5,6 @@ import InputMask from 'react-input-mask';
 import Select from 'react-select';
 import Modal from 'react-modal';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import s from './style.module.css';
 import SchedulePicker from '../SchedulePicker';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -245,6 +243,8 @@ const EcopointRegistration = () => {
                 pauseOnHover: true,
                 theme: "colored",
             });  
+
+            navigate('/')
         } else {
             console.error(`Erro ao ${isEditMode ? 'atualizar' : 'cadastrar'} o Ecoponto.`);
         }

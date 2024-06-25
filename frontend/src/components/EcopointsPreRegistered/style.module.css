@@ -1,41 +1,17 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.tableContainer {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-}
-
-.tableContainer h1 {
+.title1 {
     text-align: center;
     color: #f7fff8;
     font-weight: 700;
     font-size: 40px;
 }
 
-.tableContainer ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
-
-.tableContainer li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #d1dfd125;
-    border-radius: 10px;
-    margin-bottom: 5px;
+.title2 {
+    text-align: center;
+    color: #f7fff8;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 500;
 }
 
 .tableContainer button {
@@ -46,15 +22,67 @@
     cursor: pointer;
 }
 
-.btnConfirmModal,
-.btnOpenModalConfirm {
-    background-color: #4CAF50;
-    color: white;
+.wrapper_all {
+    justify-content: center;
+    display: flex;
 }
 
-.btnCloseModal {
-    background-color: #f44336;
-    color: white;
+.wrapper {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 60%;
+    position: relative;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.ecopoint {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 10px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    margin-bottom: 15px;
+}
+
+.btnCloseModal, .btnConfirmModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(249, 255, 248);
+    color: #000000;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 40px;
+    flex-wrap: nowrap;
+    flex: 1; 
+    margin: 0 10px; 
+}
+
+.btnConfirmModal:hover {
+    background-color: #66c469;
+}
+
+.btnCloseModal:hover {
+    background-color: rgb(160, 160, 160);
+}
+
+.btnConfirmModal {
+    background-color: #a7eca9;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 20px;
 }
 
 .modalOverlay {
@@ -71,65 +99,47 @@
 }
 
 .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
+    background: linear-gradient(to bottom right, #4c809e, #396427);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(to bottom right, #4c809e, #396427);
-    max-width: 500px;
-    border-style: none;
+    max-width: 700px;
+    width: 100%;
+    position: relative;
+    max-height: 90vh; 
+    overflow-y: auto;
 }
 
-.modal h2 {
-    margin-top: 0;
+.modalText {
+    line-height: 1.8;
+    margin-bottom: 20px; 
+}
+
+.icon_wrapper {
+    display: flex; 
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.icon {
     font-size: 20px;
-    color: #ffffff;
-}
-
-.modal p {
-    margin: 20px 0;
-    font-size: 16px;
-    color: #ffffff;
-}
-
-.modal button {
-    padding: 8px 12px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 4px;
+    margin-top: -4px;
+    margin-right: 15px;
     cursor: pointer;
+    transition: color 0.2s;
+    color: rgb(249, 255, 248);
 }
 
-
-.iconCheck,
-.iconEye {
-    font-size: 24px;
-    margin-right: 10px;
+.icon_edit {
+    font-size: 18px;
+    margin-top: -3px;
+    margin-right: 15px;
     cursor: pointer;
-    transition: color 0.5s;
+    transition: color 0.2s;
+    color: rgb(249, 255, 248);
 }
 
-.iconCheck {
-    color: #50c23a;
-}
-
-.iconEye {
-    color: #226d8dce;
-}
-
-.iconCheck:hover{
-    color: #51c23a86;
-}
-
-.iconEye:hover {
-    color: #226d8d81;
+.icon:hover {
+    color: rgb(160, 160, 160);
 }
 
 .loader {
@@ -147,14 +157,23 @@
     100% { transform: rotate(360deg); }
 }
 
+.modal_title {
+    color: #f7fff8;
+    margin-top: 0;
+    text-align: center;
+    font-size: 28px; 
+}
+
 .modalDetails {
     margin-bottom: 20px;
+    color: #ffffff;
 }
-  
+
 .modalItem {
-    margin-bottom: 8px;
+    margin-bottom: 12px; 
+    line-height: 1.6; 
 }
-  
+
 .modalSubtitle {
     margin-top: 12px;
     font-weight: bold;

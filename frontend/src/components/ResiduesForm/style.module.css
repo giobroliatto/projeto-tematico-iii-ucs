@@ -32,7 +32,6 @@
     padding: 10px;
     padding-bottom: 5px;
     padding-left: 20px;
-    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center; 
@@ -52,10 +51,6 @@
     cursor: pointer;
     transition: color 0.2s;
     color: rgb(249, 255, 248);
-}
-
-.icon_edit:hover {
-    color: rgb(57, 117, 196);
 }
 
 .icon_edit:hover, .icon_remove:hover, .icon_check:hover, .icon_cancel:hover {

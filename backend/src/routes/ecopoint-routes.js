@@ -5,6 +5,7 @@ const routes = express.Router();
 
 routes.get("/ecopoints", EcopointController.getEcopoints);
 routes.get("/ecopoints/:id", EcopointController.getEcopointById);
+routes.get("/ecopoints/email/:email", EcopointController.getEcopointsByEmail);
 routes.post("/ecopoints", EcopointController.createEcopoint);
 routes.put("/ecopoints/:id", EcopointController.updateEcopoint);
 routes.delete("/ecopoints/:id", EcopointController.removeEcopoint);

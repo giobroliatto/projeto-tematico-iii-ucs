@@ -12,23 +12,24 @@ const UserProfile = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState("");
 
     useEffect(() => {
         const checkAdminRole = () => {
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             if (token !== "undefined" && token !== null) {
                 const base64Url = token.split('.')[1];
                 const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 const decodedPayload = JSON.parse(atob(base64));
                 if (decodedPayload.role === 'admin') {
-                    setIsAuthenticated(true);
+                    setIsAuthenticated("ADMIN");
+                } else {
+                    setIsAuthenticated("ECOPOINTER");
                 }
             }
         };
         checkAdminRole();
     }, []);
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -42,10 +43,17 @@ const UserProfile = () => {
             if (response.status === 200 || response.status === 201) {
                 const token = response.data.token;
 
-                /* GUARDAR O TOKEN NO LOCAL STORAGE */
-                localStorage.setItem('token', token); 
+                /* GUARDAR O TOKEN NO SESSION STORAGE */
+                sessionStorage.setItem('token', token);
 
-                setIsAuthenticated(true);
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const decodedPayload = JSON.parse(atob(base64));
+                if (decodedPayload.role === 'admin') {
+                    setIsAuthenticated("ADMIN");
+                } else {
+                    setIsAuthenticated("ECOPOINTER");
+                }
             }
 
         } catch (err) {
@@ -66,10 +74,29 @@ const UserProfile = () => {
         navigate('/ecopoints');
     };
 
+    const handleEditEcopoint = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3001/ecopoints/email/${email}`);
+            if (response.status === 200) {
+                const ecopointId = response.data[0]._id;
+                navigate(`/edit-ecopoint/${ecopointId}`);
+            }
+        } catch (err) {
+            toast.error('Erro ao buscar ecoponto pelo email.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                draggable: true,
+                theme: 'dark',
+                transition: Slide
+            });
+        }
+    };
+
     return (
         <>
             <ToastContainer />
-            {!isAuthenticated && (
+            {isAuthenticated === "" && (
                 <div className={styles.container}>
                     <div>
                         <form onSubmit={handleSubmit}>
@@ -98,9 +125,9 @@ const UserProfile = () => {
                     </div>
                 </div>
             )}
-            {isAuthenticated && (
+            {isAuthenticated === 'ADMIN' &&  (
                 <div className={styles.containerAuth}>
-                    <h1 className={styles.titleAuth}>Acesso ao sistema</h1>
+                    <h1 className={styles.titleAuth}>Bem-vindo</h1>
                     <div className={styles.cardContainer}>
                         <div className={styles.card} onClick={() => navigate('/register-ecopoint')}>
                             <h2>Cadastrar Ecoponto</h2>
@@ -110,6 +137,16 @@ const UserProfile = () => {
                         </div>
                         <div className={styles.card} onClick={() => navigate('/ecopoints-pre-registered')}>
                             <h2>Ecopontos Pré-Cadastrados</h2>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {isAuthenticated === 'ECOPOINTER' && (
+                <div className={styles.containerAuth}>
+                    <h1 className={styles.titleAuth}>Bem-vindo</h1>
+                    <div className={styles.cardContainer}>
+                        <div className={styles.card} onClick={handleEditEcopoint}>
+                            <h2>Editar meu Ecoponto</h2>
                         </div>
                     </div>
                 </div>

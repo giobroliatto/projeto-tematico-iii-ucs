@@ -29,6 +29,16 @@ class EcopointController {
         }
     }
 
+    static async getEcopointsByEmail(req, res) {
+        try {
+            const email = req.params.email;
+            const filteredEcopoints = await ecopoint.find({ email: email });
+            res.status(200).send(filteredEcopoints);
+        } catch (err) {
+            res.status(500).json({ message: `${err.message} - falha ao buscar ecopontos pelo email: ${email}` });
+        }
+    }
+
     static async createEcopoint(req, res) {
         const newEcopoint = req.body;
     

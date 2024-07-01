@@ -3,7 +3,6 @@ import s from './style.module.css';
 
 const options = [
     { text: 'ECOPONTOS', path: '/ecopoints' },
-    { text: 'RECICLOPÉDIA', path: '/recyclopedia' } // TODO
 ];
 
 function OptionsHeader() {

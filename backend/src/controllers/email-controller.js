@@ -21,7 +21,7 @@ class EmailController {
         try {
             const info = await transporter.sendMail({
                 from: process.env.EMAIL,
-                to: dataEmail.email,
+                to: "emarcon6@ucs.br",
                 subject: "CADASTRO DO SEU ECOPONTO FOI ACEITO!",
                 html: `
                     <h1>Cadastro de Ecoponto</h1>
@@ -31,7 +31,7 @@ class EmailController {
                 `
             });
 
-            res.status(201).json({message: info});
+            res.status(201).json({message: info, pass: dataEmail.password});
         } catch(err){
             res.status(500).json(err);
         }

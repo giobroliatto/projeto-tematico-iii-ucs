@@ -219,13 +219,16 @@ const EcopointRegistration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
+        const companyCep = String(formData.companyCep).replace(/\D/g, '');
+        const responsibleNumber = String(formData.responsibleNumber).replace(/\D/g, '');
+    
         const formattedData = {
             ...formData,
-            companyCep: formData.companyCep.replace(/\D/g, ''), 
-            responsibleNumber: formData.responsibleNumber.replace(/\D/g, ''),
+            companyCep: companyCep,
+            responsibleNumber: responsibleNumber,
         };
-
+    
         const response = await fetch(`http://localhost:3001/ecopoints/${isEditMode ? id : ''}`, {
             method: isEditMode ? 'PUT' : 'POST',
             headers: {
@@ -233,7 +236,7 @@ const EcopointRegistration = () => {
             },
             body: JSON.stringify(formattedData),
         });
-
+    
         if (response.ok) {
             toast.success(`${isEditMode ? 'Ecoponto atualizado com sucesso!' : 'Dados enviados para análise. Você será comunicado quando seu ecoponto for validado'}`, {
                 position: "bottom-center",
@@ -242,13 +245,14 @@ const EcopointRegistration = () => {
                 closeOnClick: true,
                 pauseOnHover: true,
                 theme: "colored",
-            });  
-
-            navigate('/')
+            });
+    
+            navigate('/');
         } else {
             console.error(`Erro ao ${isEditMode ? 'atualizar' : 'cadastrar'} o Ecoponto.`);
         }
     };
+    
 
     const handleDelete = async () => {
         if (isEditMode) {

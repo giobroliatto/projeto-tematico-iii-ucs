@@ -58,11 +58,20 @@ class EcopointController {
             res.status(500).json({ message: `${err.message} - falha ao enviar formulário` });
         }
     }
-    
 
     static async updateEcopoint(req, res) {
+        const id = req.params.id;
         try {
-            const id = req.params.id;
+            if (req.body.residues && Array.isArray(req.body.residues)) {
+                const residues = await residue.find({ '_id': { $in: req.body.residues } });
+                
+                if (residues.length !== req.body.residues.length) {
+                    return res.status(400).json({ message: "um ou mais resíduos não foram encontrados" });
+                }
+                
+                req.body.residues = residues;
+            }
+            
             await ecopoint.findByIdAndUpdate(id, req.body);
             res.status(200).send({ message: "atualizado" });
         } catch (err) {

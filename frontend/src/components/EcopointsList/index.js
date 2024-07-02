@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faTimes, faPen } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import Utils from '../Utils/utils';
 
 Modal.setAppElement('#root');
 
@@ -142,13 +143,16 @@ const EcopointsList = () => {
                         ) : (
                             filteredEcopoints.map((ecopoint) => {
                                 const openNow = isOpenNow(ecopoint.schedules);
+                                const userRole = Utils.getRoleFromToken(sessionStorage.getItem('token'));
                                 return (
                                     <div className={s.card} key={ecopoint._id}>
-                                        <FontAwesomeIcon 
-                                            className={s.pen_icon} 
-                                            icon={faPen} 
-                                            onClick={() => handleEditClick(ecopoint._id)} 
-                                        />
+                                        {userRole === 'admin' && (
+                                            <FontAwesomeIcon 
+                                                className={s.pen_icon} 
+                                                icon={faPen} 
+                                                onClick={() => handleEditClick(ecopoint._id)} 
+                                            />
+                                        )}
                                         <h3 className={s.title3}>{ecopoint.companyName}</h3>
                                         <div className={s.schedule_section}>
                                             <h4 className={`${s.title4} ${openNow ? s.title4_open : s.title4_closed}`}>

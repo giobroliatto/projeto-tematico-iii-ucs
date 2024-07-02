@@ -6,9 +6,15 @@ import styles from './style.module.css';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import Utils from "../Utils/utils";
+import { useLocation } from 'react-router-dom';
 
 const UserProfile = () => {
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const isLogout = location.state?.logout; 
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,15 +23,27 @@ const UserProfile = () => {
     useEffect(() => {
         const checkAdminRole = () => {
             const token = sessionStorage.getItem('token');
-            if (token !== "undefined" && token !== null) {
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const decodedPayload = JSON.parse(atob(base64));
-                if (decodedPayload.role === 'admin') {
-                    setIsAuthenticated("ADMIN");
-                } else {
-                    setIsAuthenticated("ECOPOINTER");
+            const role = Utils.getRoleFromToken(token);
+
+            if(role === 'admin'){
+                setIsAuthenticated("ADMIN");
+            } else if(role === 'ecopointer') {
+                setIsAuthenticated("ECOPOINTER");
+            } else {
+
+                if(isLogout){
+                    toast.success('Logout realizado com sucesso!', {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        theme: "colored",
+                    });
                 }
+
+                setIsAuthenticated("");
+
             }
         };
         checkAdminRole();
@@ -46,12 +64,10 @@ const UserProfile = () => {
                 /* GUARDAR O TOKEN NO SESSION STORAGE */
                 sessionStorage.setItem('token', token);
 
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const decodedPayload = JSON.parse(atob(base64));
-                if (decodedPayload.role === 'admin') {
+                const role = Utils.getRoleFromToken(token);
+                if(role === 'admin'){
                     setIsAuthenticated("ADMIN");
-                } else {
+                } else if(role === 'ecopointer') {
                     setIsAuthenticated("ECOPOINTER");
                 }
             }

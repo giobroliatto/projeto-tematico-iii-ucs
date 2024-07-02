@@ -17,7 +17,7 @@ function IconsHeader() {
 
     const handleLogout = () => {
         sessionStorage.removeItem('token');
-        navigate('/ecopoints');
+        navigate('/user-profile', { state: { logout: true } });
     };
 
     return (

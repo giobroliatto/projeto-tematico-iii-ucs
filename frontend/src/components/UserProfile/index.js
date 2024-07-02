@@ -127,16 +127,13 @@ const UserProfile = () => {
             )}
             {isAuthenticated === 'ADMIN' &&  (
                 <div className={styles.containerAuth}>
-                    <h1 className={styles.titleAuth}>Bem-vindo</h1>
+                    <h1 className={styles.titleAuth}>Bem-vindo administrador</h1>
                     <div className={styles.cardContainer}>
-                        <div className={styles.card} onClick={() => navigate('/register-ecopoint')}>
-                            <h2>Cadastrar Ecoponto</h2>
-                        </div>
                         <div className={styles.card} onClick={() => navigate('/residues-form')}>
-                            <h2>Cadastrar Resíduo</h2>
+                            <h2>Manutenção de resíduos</h2>
                         </div>
                         <div className={styles.card} onClick={() => navigate('/ecopoints-pre-registered')}>
-                            <h2>Ecopontos Pré-Cadastrados</h2>
+                            <h2>Ecopontos pré-cadastrados</h2>
                         </div>
                     </div>
                 </div>

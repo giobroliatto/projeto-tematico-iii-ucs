@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import s from './style.module.css';
 import SchedulePicker from '../SchedulePicker';
 import { useParams, useNavigate } from 'react-router-dom';
+import Loader from '../Loader';
 
 const EcopointRegistration = () => {
     const { id } = useParams(); 
@@ -53,6 +54,7 @@ const EcopointRegistration = () => {
     const [selectedResiduesOptions, setSelectedResiduesOptions] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [ecopointName, setEcopointName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const residuesOptions = residuesList.map(residue => ({
         value: residue._id,
@@ -145,6 +147,8 @@ const EcopointRegistration = () => {
     }, [id, isEditMode]);
 
     const fetchAddressByCep = async (cep) => {
+        setIsLoading(true);
+    
         try {
             const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
             if (response.ok) {
@@ -175,18 +179,23 @@ const EcopointRegistration = () => {
                         theme: "colored",
                     });                    
                 }
+            } else {
+                console.error('Erro ao buscar endereço por CEP');
             }
         } catch (error) {
-            toast.error(error.response.data.message, {
+            console.error('Erro ao buscar endereço por CEP:', error);
+            toast.error(error.response?.data?.message || 'Erro ao buscar endereço por CEP', {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 theme: "colored",
-            }); 
+            });
+        } finally {
+            setIsLoading(false);
         }
-    };
+    };    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -219,43 +228,51 @@ const EcopointRegistration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
     
-        const companyCep = String(formData.companyCep).replace(/\D/g, '');
-        const responsibleNumber = String(formData.responsibleNumber).replace(/\D/g, '');
-    
-        const formattedData = {
-            ...formData,
-            companyCep: companyCep,
-            responsibleNumber: responsibleNumber,
-        };
-    
-        const response = await fetch(`http://localhost:3001/ecopoints/${isEditMode ? id : ''}`, {
-            method: isEditMode ? 'PUT' : 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formattedData),
-        });
-    
-        if (response.ok) {
-            toast.success(`${isEditMode ? 'Ecoponto atualizado com sucesso!' : 'Dados enviados para análise. Você será comunicado quando seu ecoponto for validado'}`, {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                theme: "colored",
+        try {
+            const companyCep = String(formData.companyCep).replace(/\D/g, '');
+            const responsibleNumber = String(formData.responsibleNumber).replace(/\D/g, '');
+        
+            const formattedData = {
+                ...formData,
+                companyCep: companyCep,
+                responsibleNumber: responsibleNumber,
+            };
+        
+            const response = await fetch(`http://localhost:3001/ecopoints/${isEditMode ? id : ''}`, {
+                method: isEditMode ? 'PUT' : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formattedData),
             });
-    
-            navigate('/');
-        } else {
-            console.error(`Erro ao ${isEditMode ? 'atualizar' : 'cadastrar'} o Ecoponto.`);
+        
+            if (response.ok) {
+                toast.success(`${isEditMode ? 'Ecoponto atualizado com sucesso!' : 'Dados enviados para análise. Você será comunicado quando seu ecoponto for validado'}`, {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    theme: "colored",
+                });
+        
+                navigate('/');
+            } else {
+                console.error(`Erro ao ${isEditMode ? 'atualizar' : 'cadastrar'} o Ecoponto.`);
+            }
+        } catch (error) {
+            console.error("Erro durante a requisição:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
-    
 
     const handleDelete = async () => {
         if (isEditMode) {
+            setIsLoading(true);
+
             try {
                 const response = await fetch(`http://localhost:3001/ecopoints/${id}`, {
                     method: 'DELETE',
@@ -277,12 +294,15 @@ const EcopointRegistration = () => {
                 }
             } catch (error) {
                 console.error("Erro ao remover o Ecoponto:", error);
+            } finally {
+                setIsLoading(false);
             }
         }
     };
 
     return (
         <div className={s.content}>
+            {isLoading && <Loader />}
             <ToastContainer />
 
             <h1 className={s.title1}>{isEditMode ? 'Editar Ecoponto' : 'Cadastro de Ecoponto Fixo'}</h1>

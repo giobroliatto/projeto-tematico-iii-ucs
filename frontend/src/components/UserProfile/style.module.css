@@ -37,6 +37,8 @@
 
 .titleAuth {
     text-align: center;
+    margin-top: 0px;
+    margin-bottom: 30px;
 }
 
 .container .inputField {

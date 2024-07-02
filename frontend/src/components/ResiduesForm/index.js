@@ -5,12 +5,14 @@ import { faPen, faTrash, faCheck, faTimes, faPlus } from '@fortawesome/free-soli
 import s from './style.module.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../Loader';
 
 const ResiduesForm = () => {
     const [residues, setResidues] = useState([]);
     const [editableResidueIndex, setEditableResidueIndex] = useState(null);
     const [editedResidueName, setEditedResidueName] = useState('');
     const [newResidueName, setNewResidueName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:3001/residues')
@@ -28,11 +30,15 @@ const ResiduesForm = () => {
     }, []);
 
     const loadResidues = async () => {
+        setIsLoading(true);
+
         try {
             const response = await axios.get('http://localhost:3001/residues');
             setResidues(response.data);
         } catch (error) {
             console.error('Erro ao carregar resíduos:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -42,6 +48,8 @@ const ResiduesForm = () => {
     };
 
     const handleCheckClick = async (index) => {
+        setIsLoading(true);
+
         try {
             await axios.put(`http://localhost:3001/residues/${residues[index]._id}`, { name: editedResidueName });
             await updateResidueInEcopoints(residues[index]._id, editedResidueName);
@@ -68,6 +76,8 @@ const ResiduesForm = () => {
                 pauseOnHover: true,
                 theme: "colored"
             });   
+        } finally {
+            setIsLoading(false);
         }
     };
     
@@ -98,6 +108,8 @@ const ResiduesForm = () => {
 
     const handleResidueSubmit = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
+
         try {
             if (!newResidueName) {
                 toast.error('Insira o nome do resíduo.', {
@@ -131,6 +143,8 @@ const ResiduesForm = () => {
                 pauseOnHover: true,
                 theme: "colored"
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -139,7 +153,7 @@ const ResiduesForm = () => {
     };
 
     const handleInputAddChange = (event) => {
-        setNewResidueName(event.target.value); // Atualiza o estado com o valor do input
+        setNewResidueName(event.target.value);
     };
 
     const handleCancelEdit = () => {
@@ -148,10 +162,12 @@ const ResiduesForm = () => {
     };
 
     const handleRemoveResidue = async (residueId, index) => {
+        const confirmed = window.confirm('Tem certeza de que deseja remover este resíduo?');
+        if (!confirmed) return;
+
+        setIsLoading(true);
+
         try {
-            const confirmed = window.confirm('Tem certeza de que deseja remover este resíduo?');
-            if (!confirmed) return;
-            
             await axios.delete(`http://localhost:3001/residues/${residueId}`);
             setResidues(prevResidues => prevResidues.filter((_, idx) => idx !== index));
             toast.success('Resíduo removido com sucesso.', {
@@ -171,11 +187,14 @@ const ResiduesForm = () => {
                 pauseOnHover: true,
                 theme: "colored"
             });   
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div className={s.content}>
+            {isLoading && <Loader />}
             <ToastContainer />
             <h1 className={s.title1}>Manutenção de Resíduos</h1>
             <div className={s.wrapper_all}>

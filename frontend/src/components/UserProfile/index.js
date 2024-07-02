@@ -47,7 +47,7 @@ const UserProfile = () => {
             }
         };
         checkAdminRole();
-    }, []);
+    }, [isLogout]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

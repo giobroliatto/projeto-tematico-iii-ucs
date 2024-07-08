@@ -18,7 +18,7 @@ class ResidueController {
             const filteredResidue = await residue.findById(id);
             res.status(200).send(filteredResidue);
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao buscar residue. id: ${id}` })
+            res.status(500).json({ message: `${err.message} - falha ao buscar residue` })
         }
     }
 
@@ -37,7 +37,7 @@ class ResidueController {
             await residue.findByIdAndUpdate(id, req.body);
             res.status(200).send({ message: "atualizado" });
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao atualizar residue. id: ${id}` })
+            res.status(500).json({ message: `${err.message} - falha ao atualizar residue` })
         }
     }
 

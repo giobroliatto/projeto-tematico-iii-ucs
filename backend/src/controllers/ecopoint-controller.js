@@ -25,7 +25,7 @@ class EcopointController {
             const filteredEcopoint = await ecopoint.findById(id);
             res.status(200).send(filteredEcopoint);
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao buscar ecoponto. id: ${id}` })
+            res.status(500).json({ message: `${err.message} - falha ao buscar ecoponto.` })
         }
     }
 
@@ -35,7 +35,7 @@ class EcopointController {
             const filteredEcopoints = await ecopoint.find({ email: email });
             res.status(200).send(filteredEcopoints);
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao buscar ecopontos pelo email: ${email}` });
+            res.status(500).json({ message: `${err.message} - falha ao buscar ecopontos pelo email` });
         }
     }
 
@@ -75,7 +75,7 @@ class EcopointController {
             await ecopoint.findByIdAndUpdate(id, req.body);
             res.status(200).send({ message: "atualizado" });
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao atualizar ecoponto. id: ${id}` });
+            res.status(500).json({ message: `${err.message} - falha ao atualizar ecoponto` });
         }
     }
 
@@ -85,7 +85,7 @@ class EcopointController {
             await ecopoint.findByIdAndDelete(id);
             res.status(200).send({ message: "ecoponto removido" });
         } catch (err) {
-            res.status(500).json({ message: `${err.message} - falha ao remover ecoponto. id: ${id}` })
+            res.status(500).json({ message: `${err.message} - falha ao remover ecoponto` })
         }
     }
 };
